@@ -21,7 +21,7 @@ services:
         depends_on:
             - db
 
-    db:
+    frontend:
         build: ./frontend
         container_name: react-frontend
         restart: always
