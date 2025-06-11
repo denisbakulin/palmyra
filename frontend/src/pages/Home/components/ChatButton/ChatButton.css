@@ -45,7 +45,7 @@
     white-space: nowrap;
     word-break: break-all;
     overflow-wrap: break-word;
-    max-width: 70%; 
+    max-width: 90%;
     height: 2em;
     padding-top: 0.3em;
 }
@@ -55,8 +55,8 @@
     align-self: center;
     justify-self: flex-end;
     display: flex;
-    position: absolute;
-    right: 1em;
+    margin-left: auto;
+    margin-right: 1em;
     align-items: center;
     
 }

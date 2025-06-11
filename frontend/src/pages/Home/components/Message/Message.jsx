@@ -123,14 +123,6 @@ export default function Message ({
                     <p style={{whiteSpace: 'pre-wrap', color: getTextColor(messageColor),}} key={`${message.id}-${id}`}>{str}</p>
                 )}
             </div>
-            <div className="additions">
-                {message?.additions?.map(add => (
-                    <div className="image-item">
-                        <img src={logo} className="image btn" />
-                    </div>
-                ))}
-                
-            </div>
             
         </div>
     </motion.div>
