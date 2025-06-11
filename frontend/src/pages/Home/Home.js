@@ -4,7 +4,7 @@ import "./Home.css"
 
 import { io } from "socket.io-client";
 import api from "api/api";
-import { parseISO, format, isValid} from 'date-fns';
+import { parseISO,  isValid} from 'date-fns';
 import { useAuth } from "../../context/AuthContext"
 import { Navigate } from "react-router-dom";
 
@@ -16,7 +16,6 @@ import NotifyElement from "./components/NotifyElement/NotifyElement";
 import useNotifications from "hooks/useNotifications";
 import { useMediaQuery } from 'react-responsive'
 import ChatConsole from "./components/ChatConsole/ChatConsole";
-import { UserSearch } from "lucide-react";
 
 
 export default function Home() {
