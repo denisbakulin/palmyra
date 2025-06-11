@@ -69,12 +69,12 @@ def upload_avatar():
 
     if file and ext in Config.ALLOWED_EXTENSIONS:
         if chat.avatar:
-            old_path = os.path.join(current_app.config["UPLOAD_FOLDER"], chat.avatar)
+            old_path = os.path.join(current_app.config["UPLOAD_FOLDER"],"avatars","chats", chat.avatar)
             if os.path.exists(old_path):
                 os.remove(old_path)
 
-        unique_filename = f"g{chat.id}.{ext}"
-        save_path = os.path.join(current_app.config["UPLOAD_FOLDER"], unique_filename)
+        unique_filename = f"{chat.id}.{ext}"
+        save_path = os.path.join(current_app.config["UPLOAD_FOLDER"],"avatars","chats" ,unique_filename)
         file.save(save_path)
 
         chat.update_avatar(unique_filename)

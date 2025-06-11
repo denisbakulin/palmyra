@@ -29,8 +29,8 @@ class User(db.Model):
 
     @property
     def avatar_url(self):
-        return f"{Config.SERVER_URL}/static/avatars/{self.avatar}" \
-            if self.avatar else f"{Config.SERVER_URL}/static/avatars/default.png"
+        return f"{Config.SERVER_URL}/static/avatars/users/{self.avatar}" \
+            if self.avatar else f"{Config.SERVER_URL}/static/avatars/users/default.png"
 
     @classmethod
     def get(cls, uid: str | int) -> "User":
@@ -90,8 +90,8 @@ class Chat(db.Model):
 
     @property
     def avatar_url(self):
-        return f"{Config.SERVER_URL}/static/avatars/{self.avatar}" if self.avatar \
-            else f"{Config.SERVER_URL}/static/avatars/default.png"
+        return f"{Config.SERVER_URL}/static/avatars/chats/{self.avatar}" if self.avatar \
+            else f"{Config.SERVER_URL}/static/avatars/chats/default.png"
 
     def update_avatar(self, filename):
         self.avatar = filename
