@@ -64,7 +64,7 @@ export default function MainChat ({
         setLoading(false);
     };
     const handleScroll = () => {
-        if (chatRef.current.scrollTop <= 100 && !loading && hasMore) {
+        if (chatRef.current.scrollTop <= 10 && !loading && hasMore) {
             fetchMessages();
         }
     }
