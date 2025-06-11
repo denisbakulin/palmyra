@@ -73,7 +73,7 @@ export default function MainChat ({
         setHasMore(true)
         setTimeout(() => {
             messagesEnd.current?.scrollIntoView({ behavior: "instant", block: "start" });
-        }, 50)
+        }, 200)
         
         
     },[chatID])
