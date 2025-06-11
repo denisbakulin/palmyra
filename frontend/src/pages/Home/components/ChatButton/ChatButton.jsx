@@ -16,8 +16,8 @@ export default function ChatButton ({
             <div className="chat-filling">
                 <p className="chat-name title">{chatName}</p>
                 <div style={{width: "100%", display: "flex"}}>
-                    <p className="last-message">{lastMessage}</p>
-                    <p className="last-message-time">{lastMessageTime}</p>
+                    <div className="last-message">{lastMessage}</div>
+                    <div className="last-message-time">{lastMessageTime}</div>
                 </div>
 
             </div>
