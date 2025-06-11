@@ -14,7 +14,7 @@ export default function ChatButton ({
         <div className={`chat-button noselect ${isActive ? "active" : ''}`} onClick={onClick}>
             <img className="chat-avatar" src={avatar} alt="avatar"/>
             <div className="chat-filling">
-                <div style={{width: "100%"}}>
+                <div style={{width: "100%", display: "flex"}}>
                     
                     <div className="title">
                         <span className="chat-name">{chatName}</span>

@@ -48,6 +48,7 @@
     overflow-wrap: break-word;
     height: 2em;
     padding-top: 0.3em;
+    min-width: 0;
 }
 
 .last-message-time {
@@ -58,7 +59,6 @@
     padding-right: 1em;
     align-items: center;
     flex-shrink: 0;
-    
 }
 
 .chat-name {
