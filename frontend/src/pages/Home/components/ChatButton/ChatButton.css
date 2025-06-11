@@ -41,9 +41,9 @@
     overflow: hidden;
     text-overflow: ellipsis;
     flex: 1 1 auto;
+    word-break: normal;
+    overflow-wrap: normal;
     white-space: nowrap;
-    word-break: break-all;
-    overflow-wrap: break-word;
     height: 2em;
     padding-top: 0.3em;
     min-width: 0;
