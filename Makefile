@@ -16,8 +16,7 @@ down:
 	$(COMPOSE) down
 
 # Перезапуск
-restart:
-	$(COMPOSE) restart --build
+restart: up down
 
 # Логи всех сервисов
 logs:
