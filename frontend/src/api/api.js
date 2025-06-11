@@ -31,7 +31,7 @@ api.interceptors.request.use(config => {
 export const refreshToken = async () => {
   try {
     const refresh_token = getRefreshToken();
-    const response = await api.post('auth/refresh', {}, {
+    const response = await axios.post('http://localhost/auth/refresh', {}, {
       headers: {
         'Authorization': `Bearer ${refresh_token}`
       }
