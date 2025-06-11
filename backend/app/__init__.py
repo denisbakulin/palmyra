@@ -1,18 +1,18 @@
 from flask import Flask
 from flask_cors import CORS
-from config import Config
+from backend.app.config import Config
 
-from extentions import db, jwt, socketio
+from backend.app.extentions import db, jwt, socketio
 
 
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
 
-    from routes.auth import auth_bp
-    from routes.user import user_bp
-    from routes.message import message_bp
-    from routes.chat import chat_bp
+    from backend.app.routes.auth import auth_bp
+    from backend.app.routes.user import user_bp
+    from backend.app.routes.message import message_bp
+    from backend.app.routes.chat import chat_bp
 
     app.register_blueprint(auth_bp, url_prefix="/auth")
     app.register_blueprint(user_bp, url_prefix="/user")

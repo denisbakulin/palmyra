@@ -1,4 +1,4 @@
-from extentions import socketio
+from backend.app.extentions import socketio
 from flask_socketio import emit, join_room, leave_room
 
 
