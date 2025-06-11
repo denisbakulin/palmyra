@@ -101,7 +101,7 @@ export default function Home() {
   
 
   useEffect(()=>{
-    socketRef.current = io("http://localhost:5000/", {
+    socketRef.current = io("http://localhost:5000/api/", {
       transports: ['websocket'],
       reconnectionAttempts: 5,
       reconnectionDelay: 3000, 

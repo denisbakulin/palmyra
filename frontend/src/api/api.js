@@ -3,7 +3,7 @@ import { getAccessToken, getRefreshToken, setAuthTokens } from './auth'
 
 
 const api = axios.create({
-  baseURL:  'http://localhost:5000/' ,
+  baseURL:  'http://localhost:5000/api/' ,
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
@@ -31,7 +31,7 @@ api.interceptors.request.use(config => {
 export const refreshToken = async () => {
   try {
     const refresh_token = getRefreshToken();
-    const response = await axios.post('http://localhost/auth/refresh', {}, {
+    const response = await axios.post('http://localhost/api/auth/refresh', {}, {
       headers: {
         'Authorization': `Bearer ${refresh_token}`
       }

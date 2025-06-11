@@ -36,14 +36,18 @@ services:
     container_name: react-frontend
     restart: always
     ports:
-      - "3000:3000"
+      - "80:80"
     depends_on:
       backend:
         condition: service_started
-    volumes:
-      - ./frontend/src:/app/src
+
+    networks:
+      - default
 
 volumes:
   pgdata:
   avatars:
+
+networks:
+  default:
 

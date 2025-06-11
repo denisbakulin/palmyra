@@ -32,6 +32,10 @@
 .chat-name {
     user-select: none;
     font-weight: 700;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1 1 auto;
 }
 
 .chat-filling {
