@@ -11,7 +11,7 @@
    
     z-index: 1;
     box-sizing: border-box;
-    box-shadow: 0px 0px 5px rgb(6, 6, 6);
+    box-shadow: 0 0 5px rgb(6, 6, 6);
 }
 
 .wrapper-search {
@@ -44,7 +44,7 @@
     margin-block: 0.7em;
     width: 100%;
     margin-right: 1em;
-    box-shadow: 0px 0px 5px rgb(6, 6, 6);
+    box-shadow: 0 0 5px rgb(6, 6, 6);
 }
 
 #search-chat-input:focus {
@@ -118,7 +118,6 @@
 }
 
 .search-button {
-    display: flex;
     width: 99%;
     height: 4em;
     margin-top: 0.1em;
@@ -138,15 +137,11 @@
     
 }
 
-
-
 .separator {
     width: 100%;
     padding: 0.5em;
-    
     display: flex;
     margin-block: 0.1em;
     justify-content: center;
-    
     background-color:  rgb(103, 139, 153);
 }

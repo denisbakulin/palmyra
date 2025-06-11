@@ -24,7 +24,6 @@
 
 }
 
-
 .limit {
     position: absolute;        
     top: -2em; 
@@ -33,42 +32,29 @@
     border-radius: 12px;
     background-color: rgba(255, 255, 255, 0.05);
 }
-
 #writer {
-    background-color: var(--color1);
-    border: none;
     touch-action: none;
     caret-color:bisque;
-    border-radius: 1.5em;
     color: var(--text);
     padding: 0.3em;
-    padding-right: 2em;
     scroll-snap-type:unset;
     resize: none;
     box-sizing: border-box;
     user-select: none;
     font-size: 1.2em;
-    
     width: 60%;
-    resize: none;
     background-color: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 12px;
     outline: none;
-    height: 90%;
-    
-    min-height: 4em;
-    max-height: 6.8em;
-    
+    max-height: 95%;
+    min-height: 95%;
     backdrop-filter: blur(10px);
 }
-
 
 #writer::-webkit-scrollbar {
     width: 0 !important;
 }
-
-
 
 .hidee {
     opacity: 0;
@@ -79,15 +65,13 @@
   
     height: 3em;
     border-radius: 50%;
-    box-shadow: 0px 0px 4px rgb(6, 6, 6);
+    box-shadow: 0 0 4px rgb(6, 6, 6);
     outline: none;
     transition: all 0.4s ease;
     background-color: rgba(39, 38, 38, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.2);
     margin-left: 0.5em;
 }
-
-
 
 label {
     display: flex;

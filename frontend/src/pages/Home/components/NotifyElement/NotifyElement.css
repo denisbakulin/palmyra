@@ -8,9 +8,7 @@
     overflow: hidden;
     margin-bottom: 5px;
     opacity: 0.95;
-
-    
-  }
+}
   
 .notification-content {
     display: flex;
@@ -30,7 +28,7 @@
   
 @keyframes progress {
     from { width: 100%; }
-    to { width: 0%; }
+    to { width: 0; }
 }
   
 .close-notify {

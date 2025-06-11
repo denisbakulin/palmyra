@@ -13,20 +13,20 @@
     transform: translate(50%, -50%);
     background-color: transparent;
     backdrop-filter: blur(10px);
-    box-shadow: 0px 0px 30px 5px rgba(222, 211, 211, 0.39);
+    box-shadow: 0 0 30px 5px rgba(222, 211, 211, 0.39);
     overflow-y: scroll;
     user-select: none;
 }
 
 #window::-webkit-scrollbar {
-    width: 0px !important;
+    width: 0 !important;
 }
 
 #bg-window {
     position: absolute;
     width: 100vw;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     z-index: 2;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.4);
@@ -40,7 +40,7 @@
     cursor:pointer;
     height: 100%;
     position: absolute;
-    left: 0px;
+    left: 0;
     padding-inline: 1em;
 }
 
@@ -54,7 +54,7 @@
     z-index: 3;
     user-select: none;
     position: sticky;
-    top: 0px;
+    top: 0;
     margin-bottom: 0.3em;
     display: flex;
     justify-content: center;
@@ -86,7 +86,7 @@
     cursor: pointer;
     box-sizing: border-box;
     border: 2px solid #000;
-    box-shadow: 0px 0px 5px 2px rgba(222, 211, 211, 0.39);
+    box-shadow: 0 0 5px 2px rgba(222, 211, 211, 0.39);
 
 }
 
@@ -94,7 +94,6 @@
     height: 1em;
     width: 1em;
     margin-right: 10px;
-  
     object-fit: cover;
     margin: 0px;
 }
@@ -115,7 +114,6 @@
     flex-grow: 1;
     display: flex;
     align-items: center;
-    
     color: aliceblue;
     user-select: none;
     box-sizing: border-box;
@@ -142,8 +140,6 @@
     height: 100%;
     margin-left: auto;
 }
-
-
 
 .red {
     color: red;
@@ -202,13 +198,13 @@
     border: none;
     outline: none;
     width: 100%;
-    margin: 0px;
+    margin: 0;
     height: 2.7em;
 }
 
 
 .info-input::-webkit-scrollbar {
-    width: 0px !important;
+    width: 0 !important;
 }
 
 
@@ -223,7 +219,6 @@
     width: 100%;
     background-color: rgba(255, 255, 255, 0.1);
     padding-inline: 1em;
-    
     margin-block: 0.1em;
     height: 2.5em;
     display: flex;
@@ -314,7 +309,6 @@
 }
 
 .info-area {
-    background-color: var(--color2);
     margin: 0.3em 1em;
     padding: 1em;
     border-radius: 12px;
