@@ -23,7 +23,7 @@ services:
       - "5000:5000"
     volumes:
       - avatars:/app/app/static/avatars
-      - ./backend:/app
+      - ./backend/app:/app/app
     depends_on:
       db:
         condition: service_healthy
@@ -41,7 +41,7 @@ services:
       backend:
         condition: service_started
     volumes:
-      - ./frontend:/app
+      - ./frontend/src:/app/src
 
 volumes:
   pgdata:
