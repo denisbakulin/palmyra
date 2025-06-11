@@ -1,0 +1,24 @@
+# 🔒 Игнорировать dotenv-файлы
+.env
+.env.*
+
+# 🐳 Docker
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+
+# 🐳 Docker volumes
+pgdata/
+
+# 🐘 Postgres dumps
+*.sql
+
+# 🛠 IDE
+.vscode/
+.idea/
+
+# 📄 Логи
+*.log
