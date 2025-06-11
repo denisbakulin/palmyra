@@ -21,9 +21,12 @@ services:
       - .env
     ports:
       - "5000:5000"
+    volumes:
+      - avatars:/app/app/static/avatars
     depends_on:
       db:
         condition: service_healthy
+
 
   frontend:
     build:
