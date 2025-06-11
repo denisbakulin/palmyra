@@ -6,7 +6,7 @@ import os
 load_dotenv()
 
 class Config:
-    SERVER_URL = "http://127.0.0.1:5000"
+    SERVER_URL = "http://localhost:5000"
 
     BASE_DIR = Path(__file__).parent.parent
     UPLOAD_FOLDER = BASE_DIR / 'app' / 'static' / 'avatars'
