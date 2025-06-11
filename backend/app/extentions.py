@@ -7,7 +7,8 @@ db = SQLAlchemy()
 jwt = JWTManager()
 socketio = SocketIO(cors_allowed_origins="*",
                     async_mode='eventlet',
-                    allow_headers=["Authorization"])
+                    allow_headers=["Authorization"],
+                    path="/api/socket.io")
 
 
 
