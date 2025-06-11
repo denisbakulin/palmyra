@@ -11,3 +11,4 @@ COPY . .
 ENV PTTHONPATH=/app
 
 CMD ["gunicorn", "-c", "gunicorn.config.py", "wsgi:app"]
+
