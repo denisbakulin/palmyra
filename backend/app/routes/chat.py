@@ -29,7 +29,6 @@ def create_chat():
         return jsonify(ok=True, cid=chat.id)
 
     elif ctype == "user":
-
         user2 = User.get(uid)
 
         if not user2:
@@ -46,7 +45,7 @@ def create_chat():
             user2.add_to_chat(chat)
 
         return jsonify(ok=True, cid=chat.id, users=[user.id for user in chat.users])
-
+    return {}, 400
 
 @chat_bp.post('/avatar')
 @jwt_required()

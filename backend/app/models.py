@@ -1,7 +1,7 @@
 from sqlalchemy import DateTime, func, select
 from datetime import datetime
-from backend.app.extentions import db
-from backend.app.config import Config
+from app.extentions import db
+from app.config import Config
 
 
 chat_users = db.Table(

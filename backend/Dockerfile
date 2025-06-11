@@ -8,4 +8,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
+ENV PTTHONPATH=/app
+
 CMD ["gunicorn", "-c", "gunicorn.config.py", "wsgi:app"]
