@@ -167,9 +167,9 @@ export default function Home() {
             return prevChats.map(chat =>
               chat.id === room ? {
                     ...chat,
-                    last_message: message?.message.text,
-                    last_message_time: isValid(parseISO(message.message.sent_time))
-                    ? message?.message.sent_time
+                    last_message: message?.message.content,
+                    last_message_time: isValid(parseISO(message.message?.sent_time))
+                    ? message?.message?.sent_time
                     : '',
                   }
                 : chat
