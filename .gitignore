@@ -1,6 +1,5 @@
 # 🔒 Игнорировать dotenv-файлы
-.env
-.env.*
+
 
 # 🐳 Docker
 __pycache__/
