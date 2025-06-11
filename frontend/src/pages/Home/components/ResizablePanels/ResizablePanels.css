@@ -1,0 +1,31 @@
+
+.resize-container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+  
+.left-panel {
+    position: relative;
+
+}
+  
+.resizer {
+    position: absolute;
+    right: -2px;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--chat-button-hover);
+    cursor: col-resize;
+    z-index: 1;
+}
+  
+.resizer:hover {
+    background: #999;
+}
+
+.resizer.dragging {
+    background: #666;
+}

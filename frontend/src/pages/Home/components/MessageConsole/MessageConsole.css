@@ -1,0 +1,98 @@
+#send-options {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: 1.5em;
+    justify-content: center;
+}
+
+#message-console {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 100%;
+    padding-inline: 0.65em;
+    user-select: none;
+    background-color: transparent;
+    backdrop-filter: blur(2px);
+    box-shadow: 0 0 2px rgb(6, 6, 6);
+    position: relative;
+    min-height: 3.4em;
+    padding: 0.5em;
+    max-height: 8em;
+
+}
+
+
+.limit {
+    position: absolute;        
+    top: -2em; 
+    left: 0.5em;
+    padding: 0.4em;
+    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+#writer {
+    background-color: var(--color1);
+    border: none;
+    touch-action: none;
+    caret-color:bisque;
+    border-radius: 1.5em;
+    color: var(--text);
+    padding: 0.3em;
+    padding-right: 2em;
+    scroll-snap-type:unset;
+    resize: none;
+    box-sizing: border-box;
+    user-select: none;
+    font-size: 1.2em;
+    
+    width: 60%;
+    resize: none;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    outline: none;
+    height: 90%;
+    
+    min-height: 4em;
+    max-height: 6.8em;
+    
+    backdrop-filter: blur(10px);
+}
+
+
+#writer::-webkit-scrollbar {
+    width: 0 !important;
+}
+
+
+
+.hidee {
+    opacity: 0;
+}
+
+
+.writer-option {
+  
+    height: 3em;
+    border-radius: 50%;
+    box-shadow: 0px 0px 4px rgb(6, 6, 6);
+    outline: none;
+    transition: all 0.4s ease;
+    background-color: rgba(39, 38, 38, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin-left: 0.5em;
+}
+
+
+
+label {
+    display: flex;
+}
+#cross {
+  margin-right: auto;
+    height: 2em;
+}

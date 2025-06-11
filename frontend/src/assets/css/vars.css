@@ -1,0 +1,19 @@
+:root {
+    --active-chat-button: rgb(111, 173, 180);
+}
+
+:root {
+    --color1: #242f3d;
+    --color2: #17212b;
+    --chat-button-hover: #202b36;
+    --text: #fbf0f0; 
+    --image: #69737e;
+}
+
+[data-theme="light"] {
+    --color1:  #c6ccd3;
+    --color2: #fff9f2;
+    --chat-button-hover: #e9e5e0;
+    --text: black;
+    --image: #60656b;
+}
