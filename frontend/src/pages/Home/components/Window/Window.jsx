@@ -190,8 +190,9 @@ const HomeElement = ({
                 </div>
                 
                 <div className="btn red" onClick={() => {
-                    logout()
                     navigate("/auth")
+                    logout()
+
                 }}> 
                     <span>Выйти из аккаунта</span>
                 </div>

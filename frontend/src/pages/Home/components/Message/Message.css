@@ -10,7 +10,7 @@
 .message {
     background-color: var(--color1);
     height: max-content;
-    width: max-content;
+    min-width: max-content;
     max-width: 70%;
     padding-bottom: 0.3em;
     border-radius: 12px 12px 12px 0;
