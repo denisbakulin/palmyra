@@ -2,7 +2,7 @@ from sqlalchemy import DateTime, func, select
 from datetime import datetime
 from app.extentions import db
 from app.config import Config
-
+from flask import url_for
 
 chat_users = db.Table(
     'chat_users',
@@ -29,8 +29,11 @@ class User(db.Model):
 
     @property
     def avatar_url(self):
-        return f"{Config.SERVER_URL}/static/avatars/users/{self.avatar}" \
-            if self.avatar else f"{Config.SERVER_URL}/static/avatars/users/default.png"
+        filename = self.avatar if self.avatar else "default.png"
+
+        return url_for('static',
+                       filename=f'avatars/users/{filename}',
+                       _external=True)
 
     @classmethod
     def get(cls, uid: str | int) -> "User":
@@ -90,8 +93,12 @@ class Chat(db.Model):
 
     @property
     def avatar_url(self):
-        return f"{Config.SERVER_URL}/static/avatars/chats/{self.avatar}" if self.avatar \
-            else f"{Config.SERVER_URL}/static/avatars/chats/default.png"
+        filename = self.avatar if self.avatar else "default.png"
+
+
+        return url_for('static',
+                       filename=f'avatars/chats/{filename}',
+                       _external=True)
 
     def update_avatar(self, filename):
         self.avatar = filename
