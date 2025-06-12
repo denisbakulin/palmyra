@@ -13,7 +13,7 @@ RUN NODE_ENV=production npm run build
 FROM nginx:stable-alpine
 
 # Копируем собранный билд React в директорию, обслуживаемую Nginx
-COPY --from=build /app/build /usr/share/nginx/html
+COPY --from=build /app/dist /usr/share/nginx/html
 
 COPY nginx.conf /etc/nginx/nginx.conf
 
