@@ -4,6 +4,7 @@ import MessageConsole from "../MessageConsole/MessageConsole"
 import Message from "../Message/Message"
 import api from "@api/api"
 import back from "./back.png"
+import load from "@img/load.gif"
 
 export default function MainChat ({
     setWMode, 
@@ -63,7 +64,7 @@ export default function MainChat ({
     };
 
     const handleScroll = () => {
-        if (chatRef.current.scrollTop <= 10 && !loading && hasMore) {
+        if (chatRef.current.scrollTop <= 50 && !loading && hasMore) {
             fetchMessages();
         }
     }
@@ -157,7 +158,6 @@ export default function MainChat ({
         }
     }
 
-
     return (
         <div className="main-chat">
             {chatID ? <>
@@ -166,8 +166,7 @@ export default function MainChat ({
                 <p className="chat-namee btn" onClick={onClickHeader}>{chatInfo.name}</p>
                 
             </div>
-            
-            
+                    {loading && <img src={load} alt="load"/>}
 
           <div className="chat-content" ref={chatRef} onScroll={handleScroll} style={{ visibility: initialLoaded ? "visible" : "hidden"}}>
             {m?.map((msg, idx) => {

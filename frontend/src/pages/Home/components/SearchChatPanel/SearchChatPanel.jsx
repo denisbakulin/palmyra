@@ -1,10 +1,10 @@
-import React, {useState,  useEffect, use} from "react"
+import React, {useState,  useEffect } from "react"
 import "./SearchChatPanel.css";
 import settings from "./images/settings.png"
 import sms from "./images/sms.png"
 import api from "@api/api"
 import loup from "./images/loup.png"
-import load from "./images/load.gif"
+import load from "@img/load.gif"
 
 function highlightMatch(name, query) {
     if (!query || !name) return name;
@@ -139,7 +139,7 @@ export default function SearchChatPanel ({
             : 
             <div className="not-found">
                 {isLoad ? <>
-                    <img src={load} alt="load" style={{height: "90%"}}/>
+                    <img src={load} alt="load" style={{height: "90%", marginRight: "0.5em"}}/>
                     Загрузка...
                 </>: "Нет совпадений"}
 
