@@ -84,13 +84,17 @@ export default function MainChat ({
             });
 
             const newMessages = response.data.messages.reverse();
-            setMessages(newMessages.map(m => ({ message: m.message, user: m.user })));
+            const formatted = newMessages.map(m => ({ message: m.message, user: m.user }));
+            setMessages(formatted);
 
-            // Подождем, пока DOM обновится и только потом покажем
+            // ждем обновления DOM и скроллим в самый низ напрямую
             requestAnimationFrame(() => {
                 requestAnimationFrame(() => {
-                    messagesEnd.current?.scrollIntoView({ behavior: "auto", block: "start" });
-                    setInitialLoaded(true); // теперь можно показывать чат
+                    const chatContainer = chatRef.current;
+                    if (chatContainer) {
+                        chatContainer.scrollTop = chatContainer.scrollHeight;
+                    }
+                    setInitialLoaded(true);
                     setLoading(false);
                 });
             });
@@ -100,6 +104,7 @@ export default function MainChat ({
             loadInitialMessages();
         }
     }, [chatID]);
+
 
 
 

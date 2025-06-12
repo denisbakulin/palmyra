@@ -25,6 +25,13 @@
     transform: translateZ(0);
 }
 
+.chat-content-wrapper {
+    transition: opacity 0.15s ease;
+    opacity: 0;
+}
+.chat-content-wrapper.visible {
+    opacity: 1;
+}
 .main-chat::before {
     content: "";
     position: absolute;
