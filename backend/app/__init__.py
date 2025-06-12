@@ -20,16 +20,9 @@ def create_app():
     app.register_blueprint(message_bp, url_prefix="/msg")
 
     CORS(app,
-         origins=[
-             "http://localhost"
-         ],
+         origins=["http://localhost:3000", "http://localhost"],
          supports_credentials=True,
-         allow_headers=[
-             "Content-Type",
-             "Authorization",
-             "Accept",
-             "X-Requested-With"
-         ],
+         allow_headers=["Content-Type", "Authorization", 'Accept', 'X-Requested-With'],
          methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"]
     )
 
