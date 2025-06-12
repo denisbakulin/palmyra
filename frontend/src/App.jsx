@@ -4,8 +4,8 @@ import Auth from "@pages/Auth/Auth"
 import {AuthProvider} from '@context/AuthContext'
 
 
-import "assets/css/base.css"
-import "assets/css/vars.css"
+import "@assets/css/base.css"
+import "@assets/css/vars.css"
 
 export default function App() {
   return (
