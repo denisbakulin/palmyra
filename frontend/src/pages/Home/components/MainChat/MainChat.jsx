@@ -19,6 +19,7 @@ export default function MainChat ({
     setUserID,
     setChatID,
     isMobile,
+    chatOpenKey
 }) {
     const [loading, setLoading] = useState(false)
     const [hasMore, setHasMore] = useState(true)
@@ -93,7 +94,7 @@ export default function MainChat ({
         if (chatID) {
             loadInitialMessages();
         }
-    }, [chatID]);
+    }, [chatOpenKey]);
 
 
 

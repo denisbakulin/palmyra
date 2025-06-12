@@ -13,7 +13,8 @@ export default function ChatConsole({
     setChatID,
     setUserID,
     chats,
-    setSearchInfo
+    setSearchInfo,
+    setChatOpenKey
 }) {
     return (
         <div className="chat-console">   
@@ -42,7 +43,7 @@ export default function ChatConsole({
                 chatName={_chat.name} 
                 lastMessage={_chat.last_message} 
                 lastMessageTime={isValid(parseISO(_chat.last_message_time)) ? format(parseISO(_chat.last_message_time), 'HH:mm') : ""} 
-                onClick={() => {setChatID(_chat.id); console.log(chatID)}}
+                onClick={() => {setChatID(_chat.id); console.log(chatID); setChatOpenKey(p => p + 1)}}
                 isActive={chatID === _chat.id}
                 key={_chat.id}
                 

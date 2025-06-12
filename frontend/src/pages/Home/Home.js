@@ -38,7 +38,7 @@ export default function Home() {
 
   const [chatInfo, setChatInfo] = useState({})
   const [userID, setUserID] = useState()
-
+  const [chatOpenKey, setChatOpenKey] = useState(0);
   const chatIDRef =  useRef(0)
   const socketRef = useRef(null)
 
@@ -299,6 +299,8 @@ export default function Home() {
             setChats={setChats}
             setChatID={setChatID}
             isMobile={isMobile}
+            chatOpenKey={chatOpenKey}
+
        
           />
         :
@@ -313,6 +315,7 @@ export default function Home() {
           chats={chats}
           chatID={chatID}
           setChatInfo={setChatInfo}
+          setChatOpenKey={setChatOpenKey}
           />
         }
       </>
@@ -320,8 +323,7 @@ export default function Home() {
       <ResizablePanels left={
         <ChatConsole 
           setMode={setMode} 
-          mode={mode} 
-        
+          mode={mode}
           setChatID={setChatID}
           prevMode={prevMode} 
           setWMode={setWMode} 
@@ -330,6 +332,7 @@ export default function Home() {
           chats={chats}
           chatID={chatID}
           setSearchInfo={setSearchInfo}
+          setChatOpenKey={setChatOpenKey}
           />}
 
       right={
@@ -348,8 +351,7 @@ export default function Home() {
          setChats={setChats}
          setChatID={setChatID}
          isMobile={isMobile}
-         
-         
+         chatOpenKey={chatOpenKey}
          />} 
       />
       }
