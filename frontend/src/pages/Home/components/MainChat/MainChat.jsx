@@ -29,73 +29,96 @@ export default function MainChat ({
     const fetchMessages = async (count = 15) => {
         if (loading || !hasMore) return;
         setLoading(true);
-      
+
         const chatContainer = chatRef.current;
         const scrollHeightBefore = chatContainer.scrollHeight;
         const offset = messages.length;
-      
+
         const response = await api.get("msg/", {
-          params: {
-            chat_id: chatID,
-            offset,
-            count,
-          },
+            params: {
+                chat_id: chatID,
+                offset,
+                count,
+            },
         });
-      
-        const newMessages = response.data.messages
-        setMessages(prev => {
-            const existingIds = new Set(prev.map(m => m.id))
-          
-            const uniqueNewMessages = newMessages
-              .reverse()
-              .filter(m => !existingIds.has(m.message.id))
-          
-            return [...uniqueNewMessages, ...prev]
-        })
-      
-       
+
+        const newMessages = response.data.messages;
+        const existingIds = new Set(messages.map(m => m.message.id));
+        const uniqueNewMessages = newMessages
+            .reverse()
+            .filter(m => !existingIds.has(m.message.id));
+
+        setMessages(prev => [...uniqueNewMessages, ...prev]);
+
+        // только если подгружаем вверх — восстанавливаем позицию
         requestAnimationFrame(() => {
             requestAnimationFrame(() => {
-            const newScrollHeight = chatContainer.scrollHeight;
-            chatContainer.scrollTop = newScrollHeight - scrollHeightBefore
-            })
-        })
-      
+                const newScrollHeight = chatContainer.scrollHeight;
+                chatContainer.scrollTop = newScrollHeight - scrollHeightBefore;
+            });
+        });
+
         setLoading(false);
     };
+
     const handleScroll = () => {
         if (chatRef.current.scrollTop <= 10 && !loading && hasMore) {
             fetchMessages();
         }
     }
 
+
     useEffect(() => {
-      setHasMore(true)
+        setHasMore(true)
+        setMessages([]) // Очистим сообщения при смене чата
+        setLoading(true)
 
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          messagesEnd.current?.scrollIntoView({ behavior: "auto", block: "end" })
-        })
-      })
-    }, [chatID])
+        const loadInitialMessages = async () => {
+            const response = await api.get("msg/", {
+                params: {
+                    chat_id: chatID,
+                    offset: 0,
+                    count: 20,
+                },
+            });
 
+            const newMessages = response.data.messages.reverse()
+            setMessages(newMessages.map(m => ({ message: m.message, user: m.user })))
 
-    useEffect(()=>{
-        if (!chatRef.current || !chatID) return
-        requestAnimationFrame(() => {
-            const chatContainer = chatRef.current
-            const threshold = 200; 
-            const position = chatContainer?.scrollHeight - chatContainer?.scrollTop - chatContainer?.clientHeight;
-           
-            if (position < threshold) {
+            // Ждем, пока DOM обновится
+            requestAnimationFrame(() => {
                 requestAnimationFrame(() => {
-                    messagesEnd.current?.scrollIntoView({ behavior: "instant", block: "start" }) 
-                  });
-            }
-        })
+                    messagesEnd.current?.scrollIntoView({ behavior: "auto", block: "start" })
+                })
+            });
+
+            setLoading(false)
+        };
+
+        if (chatID) {
+            loadInitialMessages()
+        }
+    }, [chatID]);
+
+
+
+    useEffect(() => {
+        if (!chatRef.current || !chatID) return;
+
+        const chatContainer = chatRef.current;
+        const position = chatContainer.scrollHeight - chatContainer.scrollTop - chatContainer.clientHeight;
+
+        const isNearBottom = position < 200;
+        if (isNearBottom) {
+            requestAnimationFrame(() => {
+                messagesEnd.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+            });
+        }
+
+        // Удаляем дубликаты
         setM([...new Map(messages.map((msg) => [msg.message.id, msg])).values()])
-        
-    },[messages])
+    }, [messages]);
+
     
     const sendMessage = () => {
         const send = async () => {

@@ -1,6 +1,3 @@
-# 🔒 Игнорировать dotenv-файлы
-
-
 # 🐳 Docker
 __pycache__/
 *.pyc
