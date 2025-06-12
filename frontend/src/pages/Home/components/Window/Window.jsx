@@ -416,7 +416,7 @@ const GroupElement = ({
                         username: value, 
                         cid: chatInfo.id
                     })
-                    setChatInfo(p => ({...p.chat, users: response.data.users}))
+                    setChatInfo(p => ({...p, users: response.data.users}))
                     socket.emit("chat", res.data.uid)
                 }
                 addUser()
