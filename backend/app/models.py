@@ -29,8 +29,8 @@ class User(db.Model):
 
     @property
     def avatar_url(self):
-        return f"{Config.SERVER_URL}/static/avatars/users/{self.avatar}" \
-            if self.avatar else f"{Config.SERVER_URL}/static/avatars/users/default.png"
+        return f"/static/avatars/users/{self.avatar}" \
+            if self.avatar else f"/static/avatars/users/default.png"
 
     @classmethod
     def get(cls, uid: str | int) -> "User":
