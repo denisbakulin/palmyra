@@ -65,7 +65,7 @@ export default function MainChat ({
     };
 
     const handleScroll = () => {
-        if (chatRef.current.scrollTop <= 50 && !loading && hasMore) {
+        if (chatRef.current.scrollTop <= 20 && !loading && hasMore) {
             fetchMessages();
         }
     }
@@ -170,7 +170,7 @@ export default function MainChat ({
             </div>
                 {!initialLoaded && <img src={load} alt="load" style={{height: "3em", margin: "0 auto"}}/>}
           <div className="chat-content" ref={chatRef} onScroll={handleScroll} style={{ visibility: initialLoaded ? "visible" : "hidden"}}>
-               {loading && hasMore && <img src={load} alt="load" style={{height: "3em", margin: "0 auto"}}/>}
+               {loading && hasMore && <img src={load} alt="load" style={{height: "3em", position: "absolute", right: "50%"}}/>}
             {m?.map((msg, idx) => {
                 const nextMessage = messages[idx+1]
                 const flag = nextMessage && nextMessage.user.id !== msg.user.id || idx === m.length-1
