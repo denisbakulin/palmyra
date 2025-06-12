@@ -310,7 +310,7 @@ const GroupElement = ({
     useEffect(() => {
         if (!value.trim() || isAll) {
             setRes([]);
-        return;
+            return null;
         }
 
         const delay = setTimeout(async () => {
@@ -326,18 +326,6 @@ const GroupElement = ({
 
         return () => clearTimeout(delay)
     }, [value])
-
-    const update = () =>{
-        const fetchUser = async () => {
-          try {
-            const response = await api.get("chat/", {params:{id: chatInfo.id}})
-            
-            setChatInfo({...response.data.chat, users: response.data.users})
-    
-          } catch (error) {}
-        }
-        fetchUser()
-    }
 
     const removeUser = async id => {
         const response = await api.post("chat/remove", {uid: id, cid: chatInfo.id})
@@ -428,11 +416,10 @@ const GroupElement = ({
                         username: value, 
                         cid: chatInfo.id
                     })
-
+                    setChatInfo({...response.data.chat, users: response.data.users})
                     socket.emit("chat", res.data.uid)
                 }
                 req()
-                update()
                 setValue("")
             }} />
             </div>

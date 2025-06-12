@@ -116,7 +116,8 @@ def add_user():
 
     emit("message", chat.id, broadcast=True, to=f"chat_{chat.id}", namespace="/")
 
-    return jsonify(uid=user.id)
+    return jsonify(uid=user.id, chat=chat.to_dict(user.id), users=[user.to_dict() for user in chat.users])
+
 
 @chat_bp.post("/join")
 @jwt_required()

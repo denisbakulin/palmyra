@@ -16,13 +16,7 @@ export default defineConfig({
   },
   server: {
     port: 3000,
-    host: true, // важно для docker
-    proxy: {
-      '/api': {
-        target: 'http://backend:5000',
-        changeOrigin: true,
-      },
-    },
+    host: true,
   },
   build: {
     outDir: 'dist',
