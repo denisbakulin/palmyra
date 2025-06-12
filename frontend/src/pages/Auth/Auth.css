@@ -11,7 +11,7 @@
 .auth::before {
     content: "";
     position: absolute;
-    background-image: url("assets/images/fon.jpg");
+    background-image: url("@assets/images/fon.jpg");
     background-size: cover;
     opacity: 0.3;
     top: 0;
