@@ -180,7 +180,7 @@ export default function MainChat ({
                         key={`msg-${msg.message.id}`}
                         messageColor={messageColor}
                         messageSize={messageSize}
-                        isMyMessage={userInfo.id == msg.user.id}
+                        isMyMessage={userInfo.id === msg.user.id}
                         setWMode={setWMode}
                         setUserID={setUserID}
                         isMobile={isMobile}
@@ -188,6 +188,12 @@ export default function MainChat ({
                     />
                 )
             })}
+              {messages.length === 0 && !loading &&
+                     <Message user={{id:1}}
+                              message={{content:"Начните общение: 'Привет!'"}}
+                              socket={socket}
+                              chatID={chatID}
+                              onClick={sendMessage}/>}
             <div ref={messagesEnd}></div>
           </div>
 

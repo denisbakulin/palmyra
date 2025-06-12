@@ -33,11 +33,10 @@ export default function Message ({
     message,
     setWMode,
     messageColor, 
-    messageSize, 
-    type,
+    messageSize,
     setUserID,
-    onClick,
-    flag
+    flag,
+    onClick
 }) {
     const [isCopied, setIsCopied] = useState(false)
    
@@ -72,7 +71,7 @@ export default function Message ({
     
     
     { (user.id === 1) ? 
-        <div style={{display: "flex", width:"100%", justifyContent: "center"}} onClick={type==="start"? onClick: ()=>{}}>
+        <div style={{display: "flex", width:"100%", justifyContent: "center"}} onClick={onClick} >
             <div className="system"> 
                 <p>{message.content}</p>  
             </div> 
