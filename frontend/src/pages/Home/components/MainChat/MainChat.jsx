@@ -156,7 +156,7 @@ export default function MainChat ({
             setUserID(chatInfo.uid)
         }
     }
-    if (loading && m.length === 0) return null
+
 
     return (
         <div className="main-chat">
