@@ -5,11 +5,13 @@ import path from 'path'
 export default defineConfig({
   plugins: [react()],
   resolve: {
-    alias: {
-      api: path.resolve(__dirname, './src/api'),
-      components: path.resolve(__dirname, './src/components'),
-      pages: path.resolve(__dirname, './src/pages'),
-      assets: path.resolve(__dirname, './src/assets')
+     alias: {
+      '@pages': path.resolve(__dirname, './src/pages'),
+      '@components': path.resolve(__dirname, './src/components'),
+      '@api': path.resolve(__dirname, './src/api'),
+      '@assets': path.resolve(__dirname, './src/assets'),
+      '@context': path.resolve(__dirname, './src/context'),
+      '@hooks': path.resolve(__dirname, './src/hooks'),
     },
   },
   server: {
