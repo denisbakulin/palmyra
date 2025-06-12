@@ -24,7 +24,7 @@ export default function MainChat ({
     const [hasMore, setHasMore] = useState(true)
     const chatRef = useRef(null)
     const [m,setM ] = useState([])
-   
+    const [initialLoaded, setInitialLoaded] = useState(false);
 
     const fetchMessages = async (count = 15) => {
         if (loading || !hasMore) return;
@@ -69,9 +69,10 @@ export default function MainChat ({
 
 
     useEffect(() => {
-        setHasMore(true)
-        setMessages([]) // Очистим сообщения при смене чата
-        setLoading(true)
+        setHasMore(true);
+        setMessages([]);
+        setLoading(true);
+        setInitialLoaded(false);
 
         const loadInitialMessages = async () => {
             const response = await api.get("msg/", {
@@ -82,23 +83,24 @@ export default function MainChat ({
                 },
             });
 
-            const newMessages = response.data.messages.reverse()
-            setMessages(newMessages.map(m => ({ message: m.message, user: m.user })))
+            const newMessages = response.data.messages.reverse();
+            setMessages(newMessages.map(m => ({ message: m.message, user: m.user })));
 
-            // Ждем, пока DOM обновится
+            // Подождем, пока DOM обновится и только потом покажем
             requestAnimationFrame(() => {
                 requestAnimationFrame(() => {
-                    messagesEnd.current?.scrollIntoView({ behavior: "auto", block: "start" })
-                })
+                    messagesEnd.current?.scrollIntoView({ behavior: "auto", block: "start" });
+                    setInitialLoaded(true); // теперь можно показывать чат
+                    setLoading(false);
+                });
             });
-
-            setLoading(false)
         };
 
         if (chatID) {
-            loadInitialMessages()
+            loadInitialMessages();
         }
     }, [chatID]);
+
 
 
 
@@ -155,30 +157,32 @@ export default function MainChat ({
             </div>
             
             
-            <div className="chat-content" ref={chatRef} onScroll={handleScroll}>
-                
-                {m?.map((msg, idx)=> {
+           <div className="chat-content-wrapper" style={{ visibility: initialLoaded ? "visible" : "hidden", height: "100%", width: "100%" }}>
+              <div className="chat-content" ref={chatRef} onScroll={handleScroll}>
+                {m?.map((msg, idx) => {
                     const nextMessage = messages[idx+1]
                     const flag = nextMessage && nextMessage.user.id !== msg.user.id || idx === m.length-1
                     return (
-                    <Message
-                        message={msg.message} 
-                        user={msg.user}
-                        key={`msg-${msg.message.id}`}
-                        messageColor={messageColor}
-                        messageSize={messageSize} 
-                        isMyMessage={userInfo.id == msg.user.id}
-                        setWMode={setWMode}
-                        setUserID={setUserID}
-                        isMobile={isMobile}  
-                        flag={flag} 
-                    />)})}
+                        <Message
+                            message={msg.message}
+                            user={msg.user}
+                            key={`msg-${msg.message.id}`}
+                            messageColor={messageColor}
+                            messageSize={messageSize}
+                            isMyMessage={userInfo.id == msg.user.id}
+                            setWMode={setWMode}
+                            setUserID={setUserID}
+                            isMobile={isMobile}
+                            flag={flag}
+                        />
+                    )
+                })}
+                <div ref={messagesEnd}></div>
+              </div>
+            </div>
 
-                <div ref={messagesEnd} key={-1}></div>
-                {!messages.length && !loading &&
-                     <Message user={{id:1}} type="start"message={{content:"Начните общение: 'Привет!'"}} socket={socket} chatID={chatID} onClick={sendMessage}/>}
-                   
-            </div>   
+
+
             <MessageConsole socket={socket} setMessages={setMessages} chatID={chatID} messagesEnd={messagesEnd} /></>
             :  <div style={{
                 backgroundColor: "var(--color1)",
