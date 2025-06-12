@@ -69,18 +69,16 @@ export default function MainChat ({
         }
     }
 
-    useEffect(()=>{
-        setHasMore(true)
-        setTimeout(() => {
-            messagesEnd.current?.scrollIntoView({ behavior: "instant", block: "start" });
-        }, 200)
-        
-        
-    },[chatID])
+    useEffect(() => {
+      setHasMore(true)
 
-    
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          messagesEnd.current?.scrollIntoView({ behavior: "auto", block: "end" })
+        })
+      })
+    }, [chatID])
 
-    
 
     useEffect(()=>{
         if (!chatRef.current || !chatID) return
