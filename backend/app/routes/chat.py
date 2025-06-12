@@ -115,6 +115,7 @@ def add_user():
     Message(user_id=1, chat_id=chat.id, content=f"Пользователь {user.username} присоединился!").save()
 
     emit("message", chat.id, broadcast=True, to=f"chat_{chat.id}", namespace="/")
+    emit("chat", broadcast=True, to=f"chat_{chat.id}", namespace="/")
 
     return jsonify(uid=user.id, users=[user.to_dict() for user in chat.users])
 

@@ -44,7 +44,7 @@ export default function Home() {
 
 
 
-  const { isAuth, isLoading } = useAuth();
+  const { isAuth } = useAuth();
   const [searchInfo, setSearchInfo] = useState({})
   
   useEffect(() => {
@@ -78,6 +78,7 @@ export default function Home() {
       setChats(response.data.chats)
 
       return response.data;
+
     } catch (error) {
       console.error("Полная ошибка:", {
         status: error.response?.status,
@@ -117,6 +118,7 @@ export default function Home() {
         data.chats.map(chat => socket.emit("join_to_room", chat.id))
       }
       joinToChat()
+
 
     })
 
