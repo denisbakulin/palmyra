@@ -171,7 +171,7 @@ export default function MainChat ({
 
 
           <div className="chat-content" ref={chatRef} onScroll={handleScroll} style={{ visibility: initialLoaded ? "visible" : "hidden"}}>
-               {loading && hasMore && <img src={load} alt="load" style={{height: "3em"}}/>}
+               {loading && hasMore || initialLoaded && <img src={load} alt="load" style={{height: "3em", marginRight: "50%"}}/>}
             {m?.map((msg, idx) => {
                 const nextMessage = messages[idx+1]
                 const flag = nextMessage && nextMessage.user.id !== msg.user.id || idx === m.length-1
