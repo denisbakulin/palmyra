@@ -79,7 +79,7 @@ export default function MainChat ({
     },[chatID])
 
     
-
+    if (loading && messages.length === 0) return ""
     
 
     useEffect(()=>{

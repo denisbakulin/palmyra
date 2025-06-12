@@ -112,7 +112,7 @@ export default function Message ({
                 isValid(parseISO(message.sent_time)) ? 
                 format(parseISO(message.sent_time), 'HH:mm') : ""}</span>
                 <span className="username">{user.username}</span>
-                <img src={copy} className="btn" style={{height: "100%", marginLeft: "auto"}} onClick={()=>handleCopy(message.text)}/>
+                <img src={copy} className="btn" style={{height: "100%", marginLeft: "auto"}} onClick={()=>handleCopy(message.content)}/>
                 
             </div>
             
