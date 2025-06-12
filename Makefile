@@ -16,8 +16,7 @@ down:
 	$(COMPOSE) down
 
 # Перезапуск
-restart: up down
-
+restart: down up
 # Логи всех сервисов
 logs:
 	$(COMPOSE) logs -f
