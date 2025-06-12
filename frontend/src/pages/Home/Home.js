@@ -100,8 +100,8 @@ export default function Home() {
   
 
   useEffect(()=>{
-    socketRef.current = io("/api", {
-      path: "/api/socket.io",
+    socketRef.current = io({
+      path: "/api/socket.io/",
       transports: ['websocket'],
       reconnectionAttempts: 5,
       reconnectionDelay: 3000, 

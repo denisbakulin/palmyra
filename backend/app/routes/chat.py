@@ -69,12 +69,12 @@ def upload_avatar():
 
     if file and ext in Config.ALLOWED_EXTENSIONS:
         if chat.avatar:
-            old_path = os.path.join(current_app.config["UPLOAD_FOLDER"],"avatars","chats", chat.avatar)
+            old_path = os.path.join(Config.UPLOAD_FOLDER, "avatars", "chats", chat.avatar)
             if os.path.exists(old_path):
                 os.remove(old_path)
 
         unique_filename = f"{chat.id}.{ext}"
-        save_path = os.path.join(current_app.config["UPLOAD_FOLDER"],"avatars","chats" ,unique_filename)
+        save_path = os.path.join(Config.UPLOAD_FOLDER,"avatars", "chats", unique_filename)
         file.save(save_path)
 
         chat.update_avatar(unique_filename)
@@ -114,7 +114,7 @@ def add_user():
     user.add_to_chat(chat)
     Message(user_id=1, chat_id=chat.id, content=f"Пользователь {user.username} присоединился!").save()
 
-    emit("message", chat.id, broadcast=True, room=f"chat_{chat.id}", namespace="/")
+    emit("message", chat.id, broadcast=True, to=f"chat_{chat.id}", namespace="/")
 
     return jsonify(uid=user.id)
 
@@ -135,7 +135,7 @@ def join():
     user.add_to_chat(chat)
     Message(user_id=1, chat_id=chat.id, content=f"Пользователь {user.username} присоединился!").save()
 
-    emit("message", chat.id, broadcast=True, room=f"chat_{chat.id}", namespace="/")
+    emit("message", chat.id, broadcast=True, to=f"chat_{chat.id}", namespace="/")
 
     return jsonify(uid=user.id)
 
@@ -173,7 +173,7 @@ def remove():
         emit("message", chat.id, broadcast=True, room=f"chat_{chat.id}", namespace="/")
 
         return [user.to_dict() for user in chat.users]
-
+    return {}
 
 @chat_bp.post("/leave")
 @jwt_required()

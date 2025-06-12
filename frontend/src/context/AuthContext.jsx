@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
 
     validateToken();
   }, [navigate]);
-
+  if (isLoading) return ""
   return (
     <AuthContext.Provider value={{ isAuth, isLoading }}>
       {children}

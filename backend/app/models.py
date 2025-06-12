@@ -135,17 +135,17 @@ class Chat(db.Model):
                 last_message=self.last_message,
                 last_message_time=self.last_message_time) | user_info
 
-        elif self.type == "group":
-            return dict(
-                id=self.id,
-                type=self.type,
-                name=self.name,
-                last_message=self.last_message,
-                last_message_time=self.last_message_time,
-                private=self.private,
-                admin=self.admin.id if self.admin else 0,
-                avatar=self.avatar_url
-            )
+
+        return dict(
+            id=self.id,
+            type=self.type,
+            name=self.name,
+            last_message=self.last_message,
+            last_message_time=self.last_message_time,
+            private=self.private,
+            admin=self.admin.id if self.admin else 0,
+            avatar=self.avatar_url
+        )
 
     @property
     def last_message(self):
@@ -217,11 +217,4 @@ class Message(db.Model):
             content=self.content,
             id=self.msg_id,
             sent_time=f"{self.created_at}Z",
-
         )
-
-
-
-
-
-

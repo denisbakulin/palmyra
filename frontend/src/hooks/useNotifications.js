@@ -1,8 +1,6 @@
 import { useMemo, useState } from 'react';
 
 
-
-
 export default function NotificationsProvider()  {
   const [notifications, setNotifications] = useState([]);
 

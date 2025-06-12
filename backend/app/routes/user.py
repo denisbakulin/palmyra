@@ -26,12 +26,12 @@ def upload_avatar():
 
     if ext in Config.ALLOWED_EXTENSIONS:
         if user.avatar:
-            old_path = os.path.join(current_app.config["UPLOAD_FOLDER"], "avatars","users",user.avatar)
+            old_path = os.path.join(Config.UPLOAD_FOLDER, "avatars","users",user.avatar)
             if os.path.exists(old_path):
                 os.remove(old_path)
 
         unique_filename = f"{user.id}.{ext}"
-        save_path = os.path.join(current_app.config["UPLOAD_FOLDER"],"avatars","users",unique_filename)
+        save_path = os.path.join(Config.UPLOAD_FOLDER,"avatars","users",unique_filename)
 
         file.save(save_path)
         user.update_avatar(unique_filename)
@@ -101,7 +101,7 @@ def edit_info():
 
     user = User.get(get_jwt_identity())
 
-    user.edit_info(info)
+    user.edit_info(info[:1000])
     return jsonify(ok=True)
 
 

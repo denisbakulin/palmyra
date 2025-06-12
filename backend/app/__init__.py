@@ -29,6 +29,7 @@ def create_app():
     db.init_app(app)
     jwt.init_app(app)
     socketio.init_app(app)
+
     from . import websocket
 
     with app.app_context():

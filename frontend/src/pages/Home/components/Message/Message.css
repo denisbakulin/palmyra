@@ -30,11 +30,12 @@
     display: flex;
     box-sizing: border-box;
     color: var(--text);
-    
 }
+
 .image {
     width: 100%;
 }
+
 .image-item {
     flex: 1;
     min-width: calc(33%); 

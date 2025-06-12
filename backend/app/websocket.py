@@ -5,12 +5,19 @@ from flask_socketio import emit, join_room, leave_room
 @socketio.on('send_message')
 def handle_message(room):
     if isinstance(room, int):
-        emit('message', room, broadcast=True, room=f"chat_{room}")
+        emit('message', room, broadcast=True, to=f"chat_{room}")
 
 
 @socketio.on('leave')
 def leave(room):
     leave_room(f"chat_{room}")
+
+
+
+
+@socketio.on('connect')
+def connect():
+    print("Connected")
 
 
 @socketio.on("join_to_room")
@@ -32,9 +39,9 @@ def connect():
 
 @socketio.on("chat")
 def add(uid):
-    emit("chat", room=f"user_{uid}")
+    emit("chat", to=f"user_{uid}")
 
 @socketio.on("rem")
 def rem(uid, cid):
-    emit("rem", cid, room=f"user_{uid}")
+    emit("rem", cid, to=f"user_{uid}")
 
