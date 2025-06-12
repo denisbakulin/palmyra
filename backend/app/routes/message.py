@@ -19,7 +19,7 @@ def get_messages():
         return jsonify(messages=[])
 
     messages = chat.messages.order_by(Message.msg_id.desc()).offset(offset).limit(count).all()
-    has_more = len(messages) != count
+    has_more = len(messages) == count
 
     return jsonify(
                     messages=[{
