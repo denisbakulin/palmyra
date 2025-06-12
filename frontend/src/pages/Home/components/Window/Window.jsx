@@ -411,15 +411,15 @@ const GroupElement = ({
                     setIsAll(false)
                 }}/>
                 <img className="s-img btn" src={approve} onClick={() => {
-                const req = async () => {
-                    const res = await api.post("chat/add", {
+                const addUser = async () => {
+                    const response = await api.post("chat/add", {
                         username: value, 
                         cid: chatInfo.id
                     })
                     setChatInfo(p => ({...p.chat, users: response.data.users}))
                     socket.emit("chat", res.data.uid)
                 }
-                req()
+                addUser()
                 setValue("")
             }} />
             </div>
