@@ -19,14 +19,14 @@ def get_messages():
         return jsonify(messages=[])
 
     messages = chat.messages.order_by(Message.msg_id.desc()).offset(offset).limit(count).all()
-    end = len(messages) != count
+    has_more = len(messages) != count
 
     return jsonify(
                     messages=[{
                         "message": message.to_dict(),
                         "user": message.user.to_dict()}
                         for message in messages],
-                    end=end
+                    has_more=has_more
                    )
 
 @message_bp.post("/")

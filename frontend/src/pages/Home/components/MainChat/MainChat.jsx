@@ -51,8 +51,9 @@ export default function MainChat ({
             .filter(m => !existingIds.has(m.message.id));
 
         setMessages(prev => [...uniqueNewMessages, ...prev]);
+        setHasMore(response.data.has_more)
 
-        // только если подгружаем вверх — восстанавливаем позицию
+
         requestAnimationFrame(() => {
             requestAnimationFrame(() => {
                 const newScrollHeight = chatContainer.scrollHeight;
@@ -90,6 +91,7 @@ export default function MainChat ({
 
             // сначала только сохраняем
             setMessages(formatted);
+            setHasMore(response.data.has_more)
         };
 
         if (chatID) {
@@ -166,9 +168,10 @@ export default function MainChat ({
                 <p className="chat-namee btn" onClick={onClickHeader}>{chatInfo.name}</p>
                 
             </div>
-                    {loading && hasMore && <img src={load} alt="load" style={{height: "3em"}}/>}
+
 
           <div className="chat-content" ref={chatRef} onScroll={handleScroll} style={{ visibility: initialLoaded ? "visible" : "hidden"}}>
+               {loading && hasMore && <img src={load} alt="load" style={{height: "3em"}}/>}
             {m?.map((msg, idx) => {
                 const nextMessage = messages[idx+1]
                 const flag = nextMessage && nextMessage.user.id !== msg.user.id || idx === m.length-1
