@@ -79,7 +79,7 @@ export default function MainChat ({
     },[chatID])
 
     
-    if (loading && messages.length === 0) return ""
+
     
 
     useEffect(()=>{
@@ -122,7 +122,7 @@ export default function MainChat ({
             setUserID(chatInfo.uid)
         }
     }
-
+    if (loading && messages.length === 0) return ""
 
     return (
         <div className="main-chat">
