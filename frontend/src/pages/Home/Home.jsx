@@ -12,7 +12,7 @@ import ResizablePanels from "./../Home/components/ResizablePanels/ResizablePanel
 
 import Window from "./../Home/components/Window/Window";
 import MainChat from "./../Home/components/MainChat/MainChat";
-import NotifyElement from "@components/NotifyElement/NotifyElement";
+import NotifyElement from "./components/NotifyElement/NotifyElement";
 import useNotifications from "@hooks/useNotifications";
 import { useMediaQuery } from 'react-responsive'
 import ChatConsole from "./components/ChatConsole/ChatConsole";
