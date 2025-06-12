@@ -167,29 +167,29 @@ export default function MainChat ({
             </div>
             
             
-           <div className="chat-content-wrapper" style={{ visibility: initialLoaded ? "visible" : "hidden", height: "100%", width: "100%" }}>
-              <div className="chat-content" ref={chatRef} onScroll={handleScroll}>
-                {m?.map((msg, idx) => {
-                    const nextMessage = messages[idx+1]
-                    const flag = nextMessage && nextMessage.user.id !== msg.user.id || idx === m.length-1
-                    return (
-                        <Message
-                            message={msg.message}
-                            user={msg.user}
-                            key={`msg-${msg.message.id}`}
-                            messageColor={messageColor}
-                            messageSize={messageSize}
-                            isMyMessage={userInfo.id == msg.user.id}
-                            setWMode={setWMode}
-                            setUserID={setUserID}
-                            isMobile={isMobile}
-                            flag={flag}
-                        />
-                    )
-                })}
-                <div ref={messagesEnd}></div>
-              </div>
-            </div>
+
+          <div className="chat-content" ref={chatRef} onScroll={handleScroll} style={{ visibility: initialLoaded ? "visible" : "hidden"}}>
+            {m?.map((msg, idx) => {
+                const nextMessage = messages[idx+1]
+                const flag = nextMessage && nextMessage.user.id !== msg.user.id || idx === m.length-1
+                return (
+                    <Message
+                        message={msg.message}
+                        user={msg.user}
+                        key={`msg-${msg.message.id}`}
+                        messageColor={messageColor}
+                        messageSize={messageSize}
+                        isMyMessage={userInfo.id == msg.user.id}
+                        setWMode={setWMode}
+                        setUserID={setUserID}
+                        isMobile={isMobile}
+                        flag={flag}
+                    />
+                )
+            })}
+            <div ref={messagesEnd}></div>
+          </div>
+
 
 
 
