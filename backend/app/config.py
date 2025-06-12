@@ -6,8 +6,6 @@ import os
 load_dotenv()
 
 class Config:
-    SERVER_URL = "http://localhost:5000"
-
     BASE_DIR = Path(__file__).parent.parent
     UPLOAD_FOLDER = BASE_DIR / 'app' / 'static'
     ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
