@@ -310,7 +310,7 @@ const GroupElement = ({
     useEffect(() => {
         if (!value.trim() || isAll) {
             setRes([]);
-            return null;
+            return ;
         }
 
         const delay = setTimeout(async () => {
@@ -416,7 +416,7 @@ const GroupElement = ({
                         username: value, 
                         cid: chatInfo.id
                     })
-                    setChatInfo({...response.data.chat, users: response.data.users})
+                    setChatInfo(p => ({...p.chat, users: response.data.users}))
                     socket.emit("chat", res.data.uid)
                 }
                 req()
