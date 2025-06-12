@@ -2,7 +2,7 @@ import React, {useState,  useEffect, use} from "react"
 import "./SearchChatPanel.css";
 import settings from "./images/settings.png"
 import sms from "./images/sms.png"
-import api from "api/api"
+import api from "@api/api"
 import loup from "./images/loup.png"
 
 function highlightMatch(name, query) {

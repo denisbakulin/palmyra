@@ -14,13 +14,13 @@ import approve from "./images/approve.png"
 import ColorPicker from "./ColorPicker/ColorPicker"
 import SizeSlider from "./SizeSlider/SizeSlider"
 
-import api from "api/api"
+import api from "@api/api"
 import ChoseFile from "../ChoseFile/ChoseFile"
-import Toast from "components/ui/Toast"
+import Toast from "@components/ui/Toast"
 
-import { logout } from "api/auth"
+import { logout } from "@api/auth"
 import pen from "./images/pen.png"
-import { parseISO, isValid, format } from 'date-fns'
+import { parseISO, isValid } from 'date-fns'
 import { useNavigate } from "react-router-dom"
 
 

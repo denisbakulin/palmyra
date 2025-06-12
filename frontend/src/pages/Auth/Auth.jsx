@@ -1,9 +1,9 @@
 import React, { useState } from "react"
 import RegisterForm from "./components/RegisterForm"
 import LoginForm from "./components/LoginForm"
-import Toast from "components/ui/Toast"
+import Toast from "@components/ui/Toast"
 import { Navigate } from "react-router-dom"
-import { useAuth } from "../../context/AuthContext"
+import { useAuth } from "@context/AuthContext"
 import "./Auth.css"
 
 

@@ -1,10 +1,9 @@
 import React, {useState} from "react"
 import "./Message.css"
-import logo from "./images/icon2.jpg"
 import { parseISO, isValid, format } from 'date-fns';
 import {motion} from "framer-motion"
 import copy from "./images/copy.png"
-import Toast from "components/ui/Toast"
+import Toast from "@components/ui/Toast"
 
 
 const messageVariants = {

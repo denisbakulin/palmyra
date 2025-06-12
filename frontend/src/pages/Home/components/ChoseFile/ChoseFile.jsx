@@ -1,6 +1,6 @@
 import React, {useState} from "react"
 import "./ChoseFile.css"
-import api from "api/api";
+import api from "@api/api";
 
 
 export default function ChoseFile ({

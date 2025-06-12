@@ -3,17 +3,17 @@ import React, {useState, useEffect, useRef} from "react";
 import "./Home.css"
 
 import { io } from "socket.io-client";
-import api from "api/api";
+import api from "@api/api";
 import { parseISO,  isValid} from 'date-fns';
-import { useAuth } from "../../context/AuthContext"
+import { useAuth } from "@context/AuthContext"
 import { Navigate } from "react-router-dom";
 
 import ResizablePanels from "./../Home/components/ResizablePanels/ResizablePanels";
 
 import Window from "./../Home/components/Window/Window";
 import MainChat from "./../Home/components/MainChat/MainChat";
-import NotifyElement from "./components/NotifyElement/NotifyElement";
-import useNotifications from "hooks/useNotifications";
+import NotifyElement from "@components/NotifyElement/NotifyElement";
+import useNotifications from "@hooks/useNotifications";
 import { useMediaQuery } from 'react-responsive'
 import ChatConsole from "./components/ChatConsole/ChatConsole";
 

@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState} from "react"
 import "./MainChat.css"
 import MessageConsole from "../MessageConsole/MessageConsole"
 import Message from "../Message/Message"
-import api from "api/api"
+import api from "@api/api"
 import back from "./back.png"
 
 export default function MainChat ({

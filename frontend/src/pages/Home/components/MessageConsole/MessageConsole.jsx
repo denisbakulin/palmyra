@@ -4,8 +4,8 @@ import "./MessageConsole.css"
 import smile from "./images/smiley.png"
 import sent from "./images/sent.png"
 import remove from "./images/delete.png"
-import api from "api/api"
-import {motion} from "framer-motion"
+import api from "@api/api"
+
 import EmojiPicker from "../EmojiPicker/EmojiPicker"
 import down from "./images/down.png"
 

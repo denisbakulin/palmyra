@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import show from "./images/show.png"
 import hide from "./images/hide.png"
 import user from "./images/user.png"
-import { registration } from '../../../api/auth'
+import { registration } from '@api/auth'
 import { useNavigate } from 'react-router-dom'
 
 

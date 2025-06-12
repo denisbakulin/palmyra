@@ -1,12 +1,9 @@
 import { useEffect, useState } from 'react'
-
-
 import show from "./images/show.png"
 import hide from "./images/hide.png"
 import user from "./images/user.png"
-import { login } from '../../../api/auth'
+import { login } from "@api/auth"
 import { useNavigate } from 'react-router-dom'
-
 
 
 export default function LoginForm({setError}) {
