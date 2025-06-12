@@ -85,25 +85,16 @@ export default function MainChat ({
 
             const newMessages = response.data.messages.reverse();
             const formatted = newMessages.map(m => ({ message: m.message, user: m.user }));
-            setMessages(formatted);
 
-            // ждем обновления DOM и скроллим в самый низ напрямую
-            requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                    const chatContainer = chatRef.current;
-                    if (chatContainer) {
-                        chatContainer.scrollTop = chatContainer.scrollHeight;
-                    }
-                    setInitialLoaded(true);
-                    setLoading(false);
-                });
-            });
+            // сначала только сохраняем
+            setMessages(formatted);
         };
 
         if (chatID) {
             loadInitialMessages();
         }
     }, [chatID]);
+
 
 
 
@@ -124,6 +115,20 @@ export default function MainChat ({
 
         // Удаляем дубликаты
         setM([...new Map(messages.map((msg) => [msg.message.id, msg])).values()])
+    }, [messages]);
+
+    useEffect(() => {
+        if (!chatRef.current || !chatID || messages.length === 0 || initialLoaded) return;
+
+        // ждём полной отрисовки DOM
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                const chatContainer = chatRef.current;
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+                setInitialLoaded(true);  // теперь можно показывать
+                setLoading(false);
+            });
+        });
     }, [messages]);
 
     
