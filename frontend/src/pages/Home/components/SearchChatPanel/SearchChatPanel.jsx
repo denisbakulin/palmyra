@@ -4,10 +4,11 @@ import settings from "./images/settings.png"
 import sms from "./images/sms.png"
 import api from "@api/api"
 import loup from "./images/loup.png"
+import load from "./images/load.gif"
 
 function highlightMatch(name, query) {
     if (!query || !name) return name;
-    const regex = new RegExp(`(${query})`, 'i')
+    const regex = new RegExp(`(${escapeRegExp(query)})`, 'i')
     const parts = name.split(regex);
   
     return parts.map((part, i) =>
@@ -19,6 +20,9 @@ function highlightMatch(name, query) {
     )
 }
 
+function escapeRegExp(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // экранирует спецсимволы
+}
 export default function SearchChatPanel ({
     setMode,
     mode,
@@ -36,6 +40,7 @@ export default function SearchChatPanel ({
     const [showMyChats, setShowMyChats] = useState(true)
     const [showNewChats, setShowNewChats] = useState(true)
     const [isLoad, setIsLoad] = useState(false)
+
 
     useEffect(() => {
         if (!query.trim()) {
@@ -132,7 +137,13 @@ export default function SearchChatPanel ({
             </>
         }</>
             : 
-            <div className="not-found">{isLoad ? "Загрузка...": "Нет совпадений"}</div>
+            <div className="not-found">
+                {isLoad ? <>
+                    <img src={load} alt="load" style={{height: "90%"}}/>
+                    Загрузка...
+                </>: "Нет совпадений"}
+
+            </div>
             
         
         }
