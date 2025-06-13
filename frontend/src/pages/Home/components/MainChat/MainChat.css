@@ -18,7 +18,7 @@
     position: relative;
     height: 100%;
     width: 100%;  
-    padding-inline: 12%;
+    padding-inline: 14%;
     scrollbar-color: var(--color1) var(--color2);
     will-change: scroll-position;
     backface-visibility: hidden;

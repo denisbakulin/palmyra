@@ -16,7 +16,6 @@
     box-shadow: 0 0 5px rgb(6, 6, 6);
     box-sizing: border-box;
     position: relative;
-    
 }
 
 .message-title {
@@ -53,16 +52,16 @@
 }
 .username {
      padding-inline: 0.5em;
-  border-radius: 12px;
-  background-color: var(--color2);
-  font-size: 1em;
+    border-radius: 12px;
+    background-color: var(--color2);
+    font-size: 1em;
 
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 70%;
 
-  flex: 1 1 0;
-  min-width: 0;
+    min-width: 0;
 }
 
 .prev {
@@ -70,15 +69,16 @@
 }
 
 .user-icon {
-    height: 4em;
-    aspect-ratio: 1/1;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 1px solid #000;
-    position: absolute;
-    left: -5px;
-    bottom: 0;
-    translate: -100% ;
+  height: 4em;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #000;
+  position: absolute;
+  left: -5px;
+  bottom: 0;
+  translate: -100% ;
+  background-color: aqua;
 }
 
 .message p {
@@ -100,7 +100,6 @@
     border-radius: 1.5em;
     background-color: rgba(39, 38, 38, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.2);
-  
 }
 
 .message-text {
@@ -113,46 +112,10 @@
 
 .my-message-body {
     justify-content: flex-end;
-}
-.message-title {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  overflow: hidden;
-  gap: 0.3em;
+
 }
 
-.sent-time {
-  flex-shrink: 0;
-  background-color: var(--color2);
-  padding-inline: 0.5em;
-  border-radius: 1em;
-  font-size: 1em;
-  display: flex;
-  align-items: center;
-}
 
-.username {
 
-  min-width: 0; /* 🔑 Обязательно, иначе не сжимается */
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  background-color: var(--color2);
-  font-size: 1em;
-  padding-inline: 0.5em;
-  border-radius: 1em;
-}
-
-.copy-wrapper {
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  margin-left: auto;
-}
-
-.copy-wrapper img {
-  height: 100%;
-}
 
 
