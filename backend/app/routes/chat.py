@@ -79,7 +79,7 @@ def upload_avatar():
 
         chat.update_avatar(unique_filename)
 
-        return {"avatar": chat.avatar_url}, 200
+        return {"avatar": chat.avatar}, 200
 
     return {"error": "Invalid file type"}, 400
 

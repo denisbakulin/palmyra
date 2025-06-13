@@ -3,7 +3,6 @@ from datetime import datetime
 from app.extentions import db
 from app.config import Config
 
-
 chat_users = db.Table(
     'chat_users',
     db.Column('chat_id', db.Integer, db.ForeignKey('chat.id'), primary_key=True),
@@ -27,10 +26,6 @@ class User(db.Model):
         super().__init__(*args, **kwargs)
         self.add_to_chat(Chat(name="Блокнот", type="group", private=True).save())
 
-    @property
-    def avatar_url(self):
-        return f"/avatars/users/{self.avatar}" \
-            if self.avatar else f"/avatars/users/default.png"
 
     @classmethod
     def get(cls, uid: str | int) -> "User":
@@ -71,7 +66,7 @@ class User(db.Model):
             username=self.username,
             info=self.info,
             date=self.date.isoformat() + "Z",
-            avatar=self.avatar_url
+            avatar=self.avatar
         )
 
     def update_avatar(self, filename):
@@ -88,10 +83,6 @@ class Chat(db.Model):
     users = db.relationship("User", secondary=chat_users, back_populates="chats")
     messages = db.relationship('Message', back_populates='chat', lazy='dynamic')
 
-    @property
-    def avatar_url(self):
-        return f"/avatars/chats/{self.avatar}" if self.avatar \
-            else f"/avatars/chats/default.png"
 
     def update_avatar(self, filename):
         self.avatar = filename
@@ -127,7 +118,7 @@ class Chat(db.Model):
         if self.type == "user":
             user = None or [user for user in self.users if user.id != uid]
             user_info = {} if not user else {"name": user[0].username,
-                                             "avatar": user[0].avatar_url,
+                                             "avatar": user[0].avatar,
                                              "uid": user[0].id}
             return dict(
                 id=self.id,
@@ -144,7 +135,7 @@ class Chat(db.Model):
             last_message_time=self.last_message_time,
             private=self.private,
             admin=self.admin.id if self.admin else 0,
-            avatar=self.avatar_url
+            avatar=self.avatar
         )
 
     @property
