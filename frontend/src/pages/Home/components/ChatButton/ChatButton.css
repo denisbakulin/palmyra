@@ -38,6 +38,16 @@
     flex: 1 1 auto;
 }
 
+
+.last-message.scroll-on-hover:hover {
+  animation: scroll-text 10s linear infinite;
+}
+
+@keyframes scroll-text {
+  0%   { transform: translateX(0%); }
+  100% { transform: translateX(-100%); }
+}
+
 .chat-filling {
   display: flex;
   flex-direction: column;
