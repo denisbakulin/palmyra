@@ -60,13 +60,18 @@ class User(db.Model):
         self.info = info
         return self
 
+    @property
+    def avatar_url(self):
+        return f"/avatars/users/{self.avatar if self.avatar else 'default.png'}"
+
+
     def to_dict(self):
         return dict(
             id=self.id,
             username=self.username,
             info=self.info,
             date=self.date.isoformat() + "Z",
-            avatar=self.avatar
+            avatar=self.avatar_url
         )
 
     def update_avatar(self, filename):
@@ -100,6 +105,9 @@ class Chat(db.Model):
             chat = cls.query.filter_by(id=int(chat_id)).first()
         return chat
 
+    @property
+    def avatar_url(self):
+        return f"/avatars/chats/{self.avatar if self.avatar else 'default.png'}"
 
 
     @property
@@ -123,7 +131,7 @@ class Chat(db.Model):
         if self.type == "user":
             user = None or [user for user in self.users if user.id != uid]
             user_info = {} if not user else {"name": user[0].username,
-                                             "avatar": user[0].avatar,
+                                             "avatar": user[0].avatar_url,
                                              "uid": user[0].id}
             return dict(
                 id=self.id,
@@ -140,7 +148,7 @@ class Chat(db.Model):
             last_message_time=self.last_message_time,
             private=self.private,
             admin=self.admin.id if self.admin else 0,
-            avatar=self.avatar
+            avatar=self.avatar_url
         )
 
     @property

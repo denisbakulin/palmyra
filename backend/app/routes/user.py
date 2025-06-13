@@ -36,7 +36,7 @@ def upload_avatar():
         file.save(save_path)
         user.update_avatar(unique_filename)
 
-        return jsonify(avatar=user.avatar), 200
+        return jsonify(avatar=user.avatar_url), 200
 
     return {"error": "Invalid file type"}, 400
 
