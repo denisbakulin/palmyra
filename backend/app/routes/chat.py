@@ -50,9 +50,11 @@ def create_chat():
 @chat_bp.post('/avatar')
 @jwt_required()
 def upload_avatar():
+    user = User.get(get_jwt_identity())
     chat = Chat.get(request.args.get("id"))
 
-    if not chat:
+
+    if not chat or user not in chat.users:
         return {}, 404
 
 
@@ -105,7 +107,7 @@ def add_user():
     user = User.query.filter_by(username=request.json.get("username")).first()
     chat = Chat.get(request.json.get("cid"))
 
-    if not user or not chat:
+    if not user or not chat.users:
         return jsonify(ok=False, id=1)
 
     if user in chat.users:
@@ -128,8 +130,8 @@ def join():
     chat = Chat.get(request.json.get("cid"))
 
 
-    if not user or not chat:
-        return jsonify(ok=False, id=1)
+    if not user or not chat.users:
+        return jsonify(ok=False)
 
     if user in chat.users:
         return jsonify(ok=False)
@@ -163,7 +165,7 @@ def remove():
     user2 = User.get(request.json.get("uid"))
     chat = Chat.get(request.json.get("cid"))
 
-    if not user or not chat:
+    if not user or not chat.users:
         return jsonify(ok=False)
 
     if user2 not in chat.users:

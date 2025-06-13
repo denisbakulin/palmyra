@@ -11,7 +11,8 @@
     background-color: var(--color1);
     height: max-content;
     width: max-content;
-    max-width: 70%;
+    max-width: min(70%, max-content);
+    min-width: max(70%, max-content);
     padding-bottom: 0.3em;
     border-radius: 12px 12px 12px 0;
     box-shadow: 0 0 5px rgb(6, 6, 6);

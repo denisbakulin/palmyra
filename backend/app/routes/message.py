@@ -18,7 +18,7 @@ def get_messages():
     if not chat or not (chat in user.chats):
         return jsonify(messages=[])
 
-    messages = chat.messages.order_by(Message.msg_id.desc()).offset(offset).limit(count).all()
+    messages = chat.messages.order_by(Message.id.desc()).offset(offset).limit(count).all()
     has_more = len(messages) == count
 
     return jsonify(

@@ -80,7 +80,12 @@ class Chat(db.Model):
     name = db.Column(db.String(20))
     avatar = db.Column(db.String(100))
 
-    users = db.relationship("User", secondary=chat_users, back_populates="chats")
+    users = db.relationship("User",
+                            secondary=chat_users,
+                            back_populates="chats",
+                            cascade="all, delete",
+                            passive_deletes=True)
+
     messages = db.relationship('Message', back_populates='chat', lazy='dynamic')
 
 
@@ -140,14 +145,14 @@ class Chat(db.Model):
 
     @property
     def last_message(self):
-        message = self.messages.order_by(Message.msg_id.desc()).first()
+        message = self.messages.order_by(Message.id.desc()).first()
         if not message:
             return ""
         return message.content
 
     @property
     def last_message_time(self):
-        message = self.messages.order_by(Message.msg_id.desc()).first()
+        message = self.messages.order_by(Message.id.desc()).first()
         if not message:
             return ""
         return message.created_at.isoformat() + "Z"
@@ -184,7 +189,7 @@ class Chat(db.Model):
 
 
 class Message(db.Model):
-    msg_id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.Text, nullable=False)
     addition = db.Column(db.String(100), nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
@@ -206,6 +211,6 @@ class Message(db.Model):
     def to_dict(self):
         return dict(
             content=self.content,
-            id=self.msg_id,
+            id=self.id,
             sent_time=f"{self.created_at}Z",
         )

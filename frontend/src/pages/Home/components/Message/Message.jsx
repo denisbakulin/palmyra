@@ -17,10 +17,10 @@ const messageVariants = {
         y: 0,
         scale: 1,
     transition:{
-        duration: 0.4,
+        duration: 0.1,
         type: "spring",
         stiffness: 300,
-        damping: 25,
+        damping: 50,
     }
     },
 };
