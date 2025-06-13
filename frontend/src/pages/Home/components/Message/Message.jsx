@@ -71,7 +71,7 @@ export default function Message ({
     
     { (user.id === 1) ? 
         <div style={{display: "flex", width:"100%", justifyContent: "center"}} onClick={onClick} >
-            <div className="system"> 
+            <div className="system btn">
                 <p>{message.content}</p>  
             </div> 
         </div>

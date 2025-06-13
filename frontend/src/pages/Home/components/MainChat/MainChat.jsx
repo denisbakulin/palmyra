@@ -122,7 +122,7 @@ export default function MainChat ({
     }, [messages]);
 
     useEffect(() => {
-        if (!chatRef.current || !chatID || messages.length === 0 || initialLoaded) return;
+        if (!chatRef.current || !chatID || initialLoaded) return;
 
         // ждём полной отрисовки DOM
         requestAnimationFrame(() => {

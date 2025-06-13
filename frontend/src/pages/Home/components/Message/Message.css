@@ -97,6 +97,7 @@
     width: max-content;
     margin-block: 0.25em;
     padding: 0.5em;
+    user-select: none;
     border-radius: 1.5em;
     background-color: rgba(39, 38, 38, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.2);
