@@ -118,24 +118,23 @@
   display: flex;
   align-items: center;
   width: 100%;
+  overflow: hidden;
   gap: 0.3em;
-  overflow: hidden; /* Это нужно */
 }
 
 .sent-time {
   flex-shrink: 0;
+  background-color: var(--color2);
   padding-inline: 0.5em;
   border-radius: 1em;
-  margin-right: 0.3em;
-  background-color: var(--color2);
   font-size: 1em;
   display: flex;
   align-items: center;
 }
 
 .username {
-  flex: 1 1 0;
-  min-width: 0; /* Это критично — без него не сожмется */
+
+  min-width: 0; /* 🔑 Обязательно, иначе не сжимается */
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -145,9 +144,15 @@
   border-radius: 1em;
 }
 
-.message-title img {
+.copy-wrapper {
   flex-shrink: 0;
-  height: 100%;
+  display: flex;
+  align-items: center;
   margin-left: auto;
 }
+
+.copy-wrapper img {
+  height: 100%;
+}
+
 
