@@ -22,7 +22,7 @@ export default function ChatButton ({
                <div className="last-message-time" >{lastMessageTime}</div>
               </div>
               <div className={`last-message ${
-                  lastMessageRef?.current.scrollWidth > fillingRef?.current.clientWidth 
+                  lastMessageRef?.current?.scrollWidth > fillingRef?.current?.clientWidth 
                   ? "scroll-on-hover" : "" }`} ref={lastMessageRef}>{lastMessage}
               </div>
           </div>
