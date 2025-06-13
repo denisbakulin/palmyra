@@ -114,4 +114,40 @@
 .my-message-body {
     justify-content: flex-end;
 }
+.message-title {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 0.3em;
+  overflow: hidden; /* Это нужно */
+}
+
+.sent-time {
+  flex-shrink: 0;
+  padding-inline: 0.5em;
+  border-radius: 1em;
+  margin-right: 0.3em;
+  background-color: var(--color2);
+  font-size: 1em;
+  display: flex;
+  align-items: center;
+}
+
+.username {
+  flex: 1 1 0;
+  min-width: 0; /* Это критично — без него не сожмется */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background-color: var(--color2);
+  font-size: 1em;
+  padding-inline: 0.5em;
+  border-radius: 1em;
+}
+
+.message-title img {
+  flex-shrink: 0;
+  height: 100%;
+  margin-left: auto;
+}
 
