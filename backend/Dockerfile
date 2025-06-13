@@ -12,8 +12,8 @@ RUN apt-get update && apt-get install -y \
 
 
 ENV POETRY_VERSION=1.8.2
-RUN curl -sSL https://install.python-poetry.org | python3 - && \
-    ln -s /root/.local/bin/poetry /usr/local/bin/poetry
+RUN pip install --no-cache-dir poetry \
+ && poetry config virtualenvs.create false
 
 
 COPY pyproject.toml poetry.lock ./
