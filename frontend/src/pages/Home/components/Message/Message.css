@@ -27,19 +27,11 @@
     padding: 0.3em;
     width: 100%;
     display: flex;
-    align-items: center;
     box-sizing: border-box;
     color: var(--text);
-    gap: 0.5em;
-    overflow: hidden;
-}
-
-
-.message-title {
-  display: flex;
   align-items: center;
-  width: 100%;
-  gap: 0.5em;
+
+  gap: 0.3em;
   overflow: hidden;
 }
 
@@ -51,39 +43,28 @@
     border-radius: 1em;
     margin-right: 0.3em;
     background-color: var(--color2);
+    flex-shrink: 0;
+
 }
 
-
+.message-title img {
+  flex-shrink: 0;
+  height: 100%;
+}
 .username {
-    background-color: var(--color2);
-    font-size: 1em;
-    padding-inline: 0.5em;
-    border-radius: 1em;
+     padding-inline: 0.5em;
+  border-radius: 12px;
+  background-color: var(--color2);
+  font-size: 1em;
 
-    /* Новое: сжатие и троеточие */
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    min-width: 0;
-    flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  flex: 1 1 0;
+  min-width: 0;
 }
 
-
-.username {
-    background-color: var(--color2);
-    font-size: 1em;
-    padding-inline: 0.5em;
-    border-radius: 1em;
-
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-
-    min-width: 0;
-    flex-grow: 1;
-    flex-shrink: 1;
-    flex-basis: 0;
-}
 .prev {
     border-radius: 12px;
 }
