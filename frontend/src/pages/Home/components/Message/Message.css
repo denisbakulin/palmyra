@@ -27,8 +27,11 @@
     padding: 0.3em;
     width: 100%;
     display: flex;
+    align-items: center;
     box-sizing: border-box;
     color: var(--text);
+    gap: 0.5em;
+    overflow: hidden;
 }
 
 .sent-time {
@@ -42,12 +45,17 @@
 }
 
 .username {
-    padding-inline: 0.5em;
-    border-radius: 1em;
     background-color: var(--color2);
     font-size: 1em;
-    text-overflow: ellipsis;
+    padding-inline: 0.5em;
+    border-radius: 1em;
+
+    /* Новое: сжатие и троеточие */
+    overflow: hidden;
     white-space: nowrap;
+    text-overflow: ellipsis;
+    min-width: 0;
+    flex: 1 1 auto;
 }
 
 .prev {
