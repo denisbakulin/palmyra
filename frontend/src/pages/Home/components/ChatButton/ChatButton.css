@@ -1,51 +1,53 @@
 .chat-button {
-    background-color:var(--color2);
-    color: var(--text);
-    min-height: 5em;
-    max-height: 5em;
-    width: 97%;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    position: relative;
-    padding-inline: 1em;
-    margin-inline: 0.25em;
-    border-radius: 12px;
-    overflow: hidden;
-    margin-top: 0.25em
+  background-color: var(--color2);
+  color: var(--text);
+  min-height: 5em;
+  max-height: 5em;
+  width: 97%;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  padding-inline: 1em;
+  margin-inline: 0.25em;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-top: 0.25em;
 }
 
 .chat-button:hover {
-    opacity: 0.8;
-    background-color: var(--chat-button-hover);
+  opacity: 0.8;
+  background-color: var(--chat-button-hover);
 }
 
 .chat-avatar {
-    height: 80%;
-    aspect-ratio: 1/1;
-    margin-right: 10px;
-    border-radius: 50%;
-    object-fit: cover;
+  height: 80%;
+  aspect-ratio: 1/1;
+  margin-right: 10px;
+  border-radius: 50%;
+  object-fit: cover;
 }
-
 
 .chat-name {
-    user-select: none;
-    font-weight: 700;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    flex: 1 1 auto;
+  user-select: none;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1 1 auto;
 }
-
 
 .last-message.scroll-on-hover:hover {
   animation: scroll-text 10s linear infinite;
 }
 
 @keyframes scroll-text {
-  0%   { transform: translateX(0%); }
-  100% { transform: translateX(-100%); }
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
 }
 
 .chat-filling {
@@ -63,13 +65,12 @@
   min-width: 0;
 }
 
-
 .last-message-wrapper {
   flex: 1 1 auto;
   min-width: 0;
   padding-top: 0.3em;
   overflow: hidden;
-    text-overflow: ellipsis;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 
@@ -89,30 +90,25 @@
 }
 
 .unread {
-    display: flex;
-    position: absolute;
-    height: 0.7em;
-    width: 0.7em;
-    margin-left: 0.5em;
-    background-color: red;
-    border-radius: 50%;
-    top: 0.5em;
-    right: 0.5em;
-
+  display: flex;
+  position: absolute;
+  height: 0.7em;
+  width: 0.7em;
+  margin-left: 0.5em;
+  background-color: red;
+  border-radius: 50%;
+  top: 0.5em;
+  right: 0.5em;
 }
 
 .noselect {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .chat-button.active {
-    background-color: var(--active-chat-button) !important;
-    opacity: 1 !important;
+  background-color: var(--active-chat-button) !important;
+  opacity: 1 !important;
 }
-
-
-
- 

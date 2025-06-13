@@ -22,10 +22,8 @@ COPY pyproject.toml poetry.lock ./
 RUN poetry config virtualenvs.create false \
     && poetry install --no-root --no-interaction --no-ansi
 
-
 COPY . .
 
 ENV PYTHONPATH=/app
 
-# Запуск gunicorn
 CMD ["gunicorn", "-c", "gunicorn.config.py", "wsgi:app"]

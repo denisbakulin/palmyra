@@ -1,7 +1,8 @@
 @font-face {
-    font-family: "FedraSansPro-Bold";
-    src: local("FedraSansPro-Bold"),
-         url("FedraSansPro-Bold.woff") format("woff"),
-         url("FedraSansPro-Bold.eot") format("eot"),
-         url("FedraSansPro-Bold.ttf") format("ttf");
+  font-family: "FedraSansPro-Bold";
+  src:
+    local("FedraSansPro-Bold"),
+    url("FedraSansPro-Bold.woff") format("woff"),
+    url("FedraSansPro-Bold.eot") format("eot"),
+    url("FedraSansPro-Bold.ttf") format("ttf");
 }

@@ -1,12 +1,11 @@
 [tool.poetry]
 name="palmyra"
 version="0.2.0"
-description=""
+description="backend app with Flask"
 authors=["Denis Bakulin dtorkon@yandex.ru"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-fastapi = "^0.95.0"
 uvicorn = "^0.23.0"
 sqlalchemy = "2.0.39"
 bidict = "0.23.1"
