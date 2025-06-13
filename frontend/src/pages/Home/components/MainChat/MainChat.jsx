@@ -168,7 +168,7 @@ export default function MainChat ({
                 <p className="chat-namee btn" onClick={onClickHeader}>{chatInfo.name}</p>
                 
             </div>
-                {!initialLoaded && <img src={load} alt="load" style={{height: "3em", margin: "0 auto"}}/>}
+                {!initialLoaded && loading && <img src={load} alt="load" style={{height: "3em", margin: "0 auto"}}/>}
           <div className="chat-content" ref={chatRef} onScroll={handleScroll} style={{ visibility: initialLoaded ? "visible" : "hidden"}}>
                {loading && hasMore && <img src={load} alt="load" style={{height: "3em", position: "absolute", right: "50%"}}/>}
             {m?.map((msg, idx) => {
