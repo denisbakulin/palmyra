@@ -19,11 +19,12 @@ def create_app():
     app.register_blueprint(chat_bp, url_prefix="/chat")
     app.register_blueprint(message_bp, url_prefix="/msg")
 
-    CORS(app,
-         origins=["http://localhost:3000", "http://localhost"],
-         supports_credentials=True,
-         allow_headers=["Content-Type", "Authorization", 'Accept', 'X-Requested-With'],
-         methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+    CORS(
+        app,
+        origins=["http://localhost:3000", "http://localhost"],
+        supports_credentials=True,
+        allow_headers=["Content-Type", "Authorization", "Accept", "X-Requested-With"],
+        methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     )
 
     db.init_app(app)
@@ -36,4 +37,3 @@ def create_app():
         db.create_all()
 
     return app
-

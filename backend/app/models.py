@@ -4,10 +4,10 @@ from app.extentions import db
 from app.config import Config
 
 chat_users = db.Table(
-    'chat_users',
-    db.Column('chat_id', db.Integer, db.ForeignKey('chat.id'), primary_key=True),
-    db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
-    db.Column('joined_at', db.DateTime, default=func.now())
+    "chat_users",
+    db.Column("chat_id", db.Integer, db.ForeignKey("chat.id"), primary_key=True),
+    db.Column("user_id", db.Integer, db.ForeignKey("user.id"), primary_key=True),
+    db.Column("joined_at", db.DateTime, default=func.now()),
 )
 
 
@@ -19,13 +19,12 @@ class User(db.Model):
     info = db.Column(db.String(1000), nullable=True)
     avatar = db.Column(db.String(100))
 
-    messages = db.relationship('Message', back_populates='user', lazy='dynamic')
+    messages = db.relationship("Message", back_populates="user", lazy="dynamic")
     chats = db.relationship("Chat", secondary=chat_users, back_populates="users")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.add_to_chat(Chat(name="Блокнот", type="group", private=True).save())
-
 
     @classmethod
     def get(cls, uid: str | int) -> "User":
@@ -64,19 +63,19 @@ class User(db.Model):
     def avatar_url(self):
         return f"/avatars/users/{self.avatar if self.avatar else 'default.png'}"
 
-
     def to_dict(self):
         return dict(
             id=self.id,
             username=self.username,
             info=self.info,
             date=self.date.isoformat() + "Z",
-            avatar=self.avatar_url
+            avatar=self.avatar_url,
         )
 
     def update_avatar(self, filename):
         self.avatar = filename
         db.session.commit()
+
 
 class Chat(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -85,14 +84,15 @@ class Chat(db.Model):
     name = db.Column(db.String(20))
     avatar = db.Column(db.String(100))
 
-    users = db.relationship("User",
-                            secondary=chat_users,
-                            back_populates="chats",
-                            cascade="all, delete",
-                            passive_deletes=True)
+    users = db.relationship(
+        "User",
+        secondary=chat_users,
+        back_populates="chats",
+        cascade="all, delete",
+        passive_deletes=True,
+    )
 
-    messages = db.relationship('Message', back_populates='chat', lazy='dynamic')
-
+    messages = db.relationship("Message", back_populates="chat", lazy="dynamic")
 
     def update_avatar(self, filename):
         self.avatar = filename
@@ -109,7 +109,6 @@ class Chat(db.Model):
     def avatar_url(self):
         return f"/avatars/chats/{self.avatar if self.avatar else 'default.png'}"
 
-
     @property
     def admin(self):
         return (
@@ -118,8 +117,7 @@ class Chat(db.Model):
             .filter(chat_users.c.chat_id == self.id)
             .order_by(chat_users.c.joined_at)
             .first()
-    )
-
+        )
 
     def save(self):
         db.session.add(self)
@@ -130,15 +128,24 @@ class Chat(db.Model):
     def to_dict(self, uid=1):
         if self.type == "user":
             user = None or [user for user in self.users if user.id != uid]
-            user_info = {} if not user else {"name": user[0].username,
-                                             "avatar": user[0].avatar_url,
-                                             "uid": user[0].id}
-            return dict(
-                id=self.id,
-                type=self.type,
-                last_message=self.last_message,
-                last_message_time=self.last_message_time) | user_info
-
+            user_info = (
+                {}
+                if not user
+                else {
+                    "name": user[0].username,
+                    "avatar": user[0].avatar_url,
+                    "uid": user[0].id,
+                }
+            )
+            return (
+                dict(
+                    id=self.id,
+                    type=self.type,
+                    last_message=self.last_message,
+                    last_message_time=self.last_message_time,
+                )
+                | user_info
+            )
 
         return dict(
             id=self.id,
@@ -148,7 +155,7 @@ class Chat(db.Model):
             last_message_time=self.last_message_time,
             private=self.private,
             admin=self.admin.id if self.admin else 0,
-            avatar=self.avatar_url
+            avatar=self.avatar_url,
         )
 
     @property
@@ -202,19 +209,17 @@ class Message(db.Model):
     addition = db.Column(db.String(100), nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
 
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    chat_id = db.Column(db.Integer, db.ForeignKey('chat.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    chat_id = db.Column(db.Integer, db.ForeignKey("chat.id"), nullable=False)
 
-    user = db.relationship('User', back_populates='messages')
-    chat = db.relationship('Chat', back_populates='messages')
-
+    user = db.relationship("User", back_populates="messages")
+    chat = db.relationship("Chat", back_populates="messages")
 
     def save(self):
         db.session.add(self)
         db.session.flush()
         db.session.commit()
         return self
-
 
     def to_dict(self):
         return dict(

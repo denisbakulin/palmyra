@@ -2,20 +2,18 @@ from app.extentions import socketio
 from flask_socketio import emit, join_room, leave_room
 
 
-@socketio.on('send_message')
+@socketio.on("send_message")
 def handle_message(room):
     if isinstance(room, int):
-        emit('message', room, broadcast=True, to=f"chat_{room}")
+        emit("message", room, broadcast=True, to=f"chat_{room}")
 
 
-@socketio.on('leave')
+@socketio.on("leave")
 def leave(room):
     leave_room(f"chat_{room}")
 
 
-
-
-@socketio.on('connect')
+@socketio.on("connect")
 def connect():
     print("Connected")
 
@@ -26,11 +24,11 @@ def connect_to_group(room):
         join_room(f"chat_{room}")
 
 
-
 @socketio.on("user")
 def user(uid):
     if isinstance(uid, int):
         join_room(f"user_{uid}")
+
 
 @socketio.on("connect")
 def connect():
@@ -41,7 +39,7 @@ def connect():
 def add(uid):
     emit("chat", to=f"user_{uid}")
 
+
 @socketio.on("rem")
 def rem(uid, cid):
     emit("rem", cid, to=f"user_{uid}")
-

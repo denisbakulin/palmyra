@@ -47,22 +47,20 @@ def create_chat():
         return jsonify(ok=True, cid=chat.id, users=[user.id for user in chat.users])
     return {}, 400
 
-@chat_bp.post('/avatar')
+
+@chat_bp.post("/avatar")
 @jwt_required()
 def upload_avatar():
     user = User.get(get_jwt_identity())
     chat = Chat.get(request.args.get("id"))
 
-
     if not chat or user not in chat.users:
         return {}, 404
-
 
     if "avatar" not in request.files:
         return {"error": "No file uploaded"}, 400
 
     file = request.files.get("avatar")
-
 
     if file.filename == "" or len(file.filename.split(".")) < 2:
         return {"error": "No selected file"}, 400
@@ -76,7 +74,7 @@ def upload_avatar():
                 os.remove(old_path)
 
         unique_filename = f"{chat.id}.{ext}"
-        save_path = os.path.join("/static","avatars", "chats", unique_filename)
+        save_path = os.path.join("/static", "avatars", "chats", unique_filename)
         file.save(save_path)
 
         chat.update_avatar(unique_filename)
@@ -95,9 +93,11 @@ def index():
     if not chat:
         return jsonify(ok=False)
 
-    return jsonify(chat=chat.to_dict(user.id),
-                   users=[user.to_dict() for user in chat.users],
-                   member=user in chat.users)
+    return jsonify(
+        chat=chat.to_dict(user.id),
+        users=[user.to_dict() for user in chat.users],
+        member=user in chat.users,
+    )
 
 
 @chat_bp.post("/add")
@@ -114,7 +114,11 @@ def add_user():
         return jsonify(ok=False)
 
     user.add_to_chat(chat)
-    Message(user_id=1, chat_id=chat.id, content=f"Пользователь {user.username} присоединился!").save()
+    Message(
+        user_id=1,
+        chat_id=chat.id,
+        content=f"Пользователь {user.username} присоединился!",
+    ).save()
 
     emit("message", chat.id, broadcast=True, to=f"chat_{chat.id}", namespace="/")
     emit("chat", broadcast=True, to=f"chat_{chat.id}", namespace="/")
@@ -129,7 +133,6 @@ def join():
     user = User.get(get_jwt_identity())
     chat = Chat.get(request.json.get("cid"))
 
-
     if not user or not chat.users:
         return jsonify(ok=False)
 
@@ -137,7 +140,11 @@ def join():
         return jsonify(ok=False)
 
     user.add_to_chat(chat)
-    Message(user_id=1, chat_id=chat.id, content=f"Пользователь {user.username} присоединился!").save()
+    Message(
+        user_id=1,
+        chat_id=chat.id,
+        content=f"Пользователь {user.username} присоединился!",
+    ).save()
 
     emit("message", chat.id, broadcast=True, to=f"chat_{chat.id}", namespace="/")
 
@@ -153,7 +160,11 @@ def search_chat():
         return jsonify(result=[])
 
     chats = Chat.query.filter(Chat.name.ilike(f"%{chat_name}%")).all()
-    result = [chat.to_dict() | {"member": user in chat.users} for chat in chats if not chat.private]
+    result = [
+        chat.to_dict() | {"member": user in chat.users}
+        for chat in chats
+        if not chat.private
+    ]
 
     return result
 
@@ -173,11 +184,16 @@ def remove():
 
     if chat.admin.id == user.id:
         chat.del_from_chat(user2)
-        Message(user_id=1, chat_id=chat.id, content=f"Пользователь {user2.username} был удален!").save()
+        Message(
+            user_id=1,
+            chat_id=chat.id,
+            content=f"Пользователь {user2.username} был удален!",
+        ).save()
         emit("message", chat.id, broadcast=True, room=f"chat_{chat.id}", namespace="/")
 
         return [user.to_dict() for user in chat.users]
     return {}
+
 
 @chat_bp.post("/leave")
 @jwt_required()
@@ -194,10 +210,10 @@ def leave():
 
     chat.del_from_chat(user)
 
-    Message(user_id=1, chat_id=chat.id, content=f"Пользователь {user.username} вышел(").save()
+    Message(
+        user_id=1, chat_id=chat.id, content=f"Пользователь {user.username} вышел("
+    ).save()
 
     emit("message", chat.id, broadcast=True, room=f"chat_{chat.id}", namespace="/")
 
-    return jsonify(chats=[chat.to_dict(user.id)
-                           for chat in user.chats])
-
+    return jsonify(chats=[chat.to_dict(user.id) for chat in user.chats])

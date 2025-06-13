@@ -9,7 +9,7 @@ from app.config import Config
 user_bp = Blueprint("user", __name__)
 
 
-@user_bp.post('/avatar')
+@user_bp.post("/avatar")
 @jwt_required()
 def upload_avatar():
     user = User.get(get_jwt_identity())
@@ -26,12 +26,12 @@ def upload_avatar():
 
     if ext in Config.ALLOWED_EXTENSIONS:
         if user.avatar:
-            old_path = os.path.join("/static", "avatars","users",user.avatar)
+            old_path = os.path.join("/static", "avatars", "users", user.avatar)
             if os.path.exists(old_path):
                 os.remove(old_path)
 
         unique_filename = f"{user.id}.{ext}"
-        save_path = os.path.join("/static","avatars","users",unique_filename)
+        save_path = os.path.join("/static", "avatars", "users", unique_filename)
 
         file.save(save_path)
         user.update_avatar(unique_filename)
@@ -49,8 +49,9 @@ def index():
     if not user:
         return {}
 
-    return jsonify(**user.to_dict(),
-                   chats=[chat.to_dict(user.id) for chat in user.chats])
+    return jsonify(
+        **user.to_dict(), chats=[chat.to_dict(user.id) for chat in user.chats]
+    )
 
 
 @user_bp.get("search")
@@ -78,6 +79,7 @@ def get_user_by_id(user_id):
 
     return jsonify(user=user.to_dict())
 
+
 @user_bp.post("edit/username")
 @jwt_required()
 def edit_username():
@@ -86,7 +88,12 @@ def edit_username():
         return jsonify(error="Длина имени должна быть не менее 4 символов"), 400
 
     if User.query.filter_by(username=username).first():
-        return jsonify(error=f"Пользователь с именем '{username}' уже сушествует, придумайте другое имя!"), 400
+        return (
+            jsonify(
+                error=f"Пользователь с именем '{username}' уже сушествует, придумайте другое имя!"
+            ),
+            400,
+        )
 
     user = User.get(get_jwt_identity())
 
@@ -103,5 +110,3 @@ def edit_info():
 
     user.edit_info(info[:1000])
     return jsonify(ok=True)
-
-
