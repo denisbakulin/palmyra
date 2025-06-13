@@ -75,10 +75,7 @@
 
 .last-message {
   user-select: none;
-  overflow: hidden;
-
   white-space: nowrap;
-
 }
 
 .last-message-time {
