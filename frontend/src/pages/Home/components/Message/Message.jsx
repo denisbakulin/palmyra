@@ -7,22 +7,22 @@ import Toast from "@components/ui/Toast"
 
 
 const messageVariants = {
-    hidden: {
-        opacity: 0.3,
-        y: 60,
-        scale: 0.8,
+  hidden: {
+    opacity: 0.3,
+    y: 60,
+    scale: 0.8,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.05,
+      type: "spring",
+      stiffness: 500,
+      damping: 25,
     },
-    visible: {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-    transition:{
-        duration: 0.1,
-        type: "spring",
-        stiffness: 300,
-        damping: 50,
-    }
-    },
+  },
 };
 
 
