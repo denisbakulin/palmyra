@@ -10,9 +10,7 @@
 .message {
     background-color: var(--color1);
     height: max-content;
-    width: max-content;
-    max-width: min(70%, max-content);
-    min-width: max(70%, max-content);
+    width: clamp(70%, fit-content, 100%);
     padding-bottom: 0.3em;
     border-radius: 12px 12px 12px 0;
     box-shadow: 0 0 5px rgb(6, 6, 6);
@@ -33,26 +31,6 @@
     color: var(--text);
 }
 
-.image {
-    width: 100%;
-}
-
-.image-item {
-    flex: 1;
-    min-width: calc(33%); 
-    max-width: 100%;
-    aspect-ratio: 1/1; 
-    box-sizing: border-box;
-    max-height: max-content;
-    border: 1px solid #000;
-}
-
-.additions {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-}
-
 .sent-time {
     display: flex;
     font-size: 1em;
@@ -64,11 +42,13 @@
 }
 
 .username {
-    
     padding-inline: 0.5em;
     border-radius: 1em;
     background-color: var(--color2);
     font-size: 1em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 50%;
 }
 
 .prev {
