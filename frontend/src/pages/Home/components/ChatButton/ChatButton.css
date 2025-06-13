@@ -39,7 +39,7 @@
 }
 
 
-.last-message.scroll-on-hover:hover {
+.last-message-wrapper.scroll-on-hover:hover {
   animation: scroll-text 10s linear infinite;
 }
 
@@ -63,14 +63,21 @@
   min-width: 0;
 }
 
+
+.last-message-wrapper {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding-top: 0.3em;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
 .last-message {
   user-select: none;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  flex: 1 1 auto;
-  min-width: 0;
-  padding-top: 0.3em;
+
 }
 
 .last-message-time {

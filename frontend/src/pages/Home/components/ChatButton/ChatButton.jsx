@@ -21,10 +21,13 @@ export default function ChatButton ({
                <p className="chat-name title">{chatName}</p>
                <div className="last-message-time" >{lastMessageTime}</div>
               </div>
-              <div className={`last-message ${
-                  lastMessageRef?.current?.scrollWidth > fillingRef?.current?.clientWidth 
-                  ? "scroll-on-hover" : "" }`} ref={lastMessageRef}>{lastMessage}
+              <div className={`last-message-wrapper ${
+                  lastMessageRef?.current?.scrollWidth > fillingRef?.current?.clientWidth
+                      ? "scroll-on-hover" : ""}`} ref={lastMessageRef}>
+                 <div className="last-message">{lastMessage}
               </div>
+              </div>
+
           </div>
 </div>
 

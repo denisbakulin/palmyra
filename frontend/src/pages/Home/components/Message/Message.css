@@ -48,7 +48,6 @@
     font-size: 1em;
     text-overflow: ellipsis;
     white-space: nowrap;
-    max-width: 7em;
 }
 
 .prev {
