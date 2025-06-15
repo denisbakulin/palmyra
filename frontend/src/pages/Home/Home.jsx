@@ -150,7 +150,7 @@ export default function Home() {
       leaveFromChat();
     });
 
-    socket.on("message", (room) => {
+    socket.on("message", chatId => {
       const getNewMessage = async () => {
         try {
           const response = await api.get("msg", { params: { chat_id: room } });
