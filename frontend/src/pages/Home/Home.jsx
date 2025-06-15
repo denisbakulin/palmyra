@@ -178,7 +178,8 @@ export default function Home() {
                   }
                 : chat,
             );
-          });
+          })
+          getNewMessage()
         } catch (error) {
           console.log(error);
         }
