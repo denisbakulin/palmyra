@@ -41,7 +41,7 @@ def upload_avatar():
     return {"error": "Invalid file type"}, 400
 
 
-@user_bp.get("/")
+@user_bp.get("/", strict_slashes=False)
 @jwt_required()
 def index():
     user = User.get(get_jwt_identity())

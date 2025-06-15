@@ -6,7 +6,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 message_bp = Blueprint("message", __name__)
 
 
-@message_bp.get("/")
+@message_bp.get("/", strict_slashes=False)
 @jwt_required()
 def get_messages():
     offset = request.args.get("offset", default=0, type=int)

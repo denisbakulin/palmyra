@@ -10,7 +10,7 @@ from app.config import Config
 chat_bp = Blueprint("chat", __name__)
 
 
-@chat_bp.post("/")
+@chat_bp.post("/", strict_slashes=False)
 @jwt_required()
 def create_chat():
     chat_name = request.json.get("name", "")
@@ -84,7 +84,7 @@ def upload_avatar():
     return {"error": "Invalid file type"}, 400
 
 
-@chat_bp.get("/")
+@chat_bp.get("/", strict_slashes=False)
 @jwt_required()
 def index():
     user = User.get(get_jwt_identity())
