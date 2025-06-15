@@ -159,14 +159,14 @@ export default function Home() {
 
           const message = messages[0];
 
-          if (room === chatIDRef.current) {
+          if (chatId === chatIDRef.current) {
             setMessages((prev) => {
               return [...prev, message];
             });
           }
           setChats((prevChats) => {
             return prevChats.map((chat) =>
-              chat.id === room
+              chat.id === chatId
                 ? {
                     ...chat,
                     last_message: message?.message.content,
