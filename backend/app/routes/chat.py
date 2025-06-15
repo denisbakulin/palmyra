@@ -10,7 +10,70 @@ from app.config import Config
 chat_bp = Blueprint("chat", __name__)
 
 
-@chat_bp.post("/", strict_slashes=False)
+@chat_bp.get("/")
+@jwt_required()
+def index():
+    user = User.get(get_jwt_identity())
+    chat = Chat.get(request.args.get("id"))
+
+    if not chat:
+        return jsonify(ok=False)
+
+    return jsonify(
+        chat=chat.to_dict(user.id),
+        users=[user.to_dict() for user in chat.users],
+        member=user in chat.users,
+    )
+
+
+@chat_bp.post("/")
+@jwt_required()
+def create_chat():
+    chat_name = request.json.get("name", "")
+    private = request.json.get("private", False)
+    user = User.get(get_jwt_identity())
+
+    if not chat_name or not isinstance(private, bool) or not user:
+        return jsonify(ok=False)
+
+    chat = Chat(name=chat_name, type="group", private=private).save()
+    user.add_to_chat(chat)
+    emit("new_chat_room", chat.id, user.id, to=f"user_{user.id}", namespace="/")
+
+    return jsonify(ok=True, chat_id=chat.id)
+
+
+@chat_bp.post("/user")
+@jwt_required()
+def create_user_chat():
+    user = User.get(get_jwt_identity())
+    sec_user = User.get(request.json.get("user_id"))
+    chat = Chat.find_chat_with_users([user.id, sec_user.id])
+
+    if not sec_user or not chat or not user:
+        return jsonify(ok=False)
+
+    if not chat:
+        if sec_user.id == user.id:
+            return jsonify(ok=False, error="Нельзя написать самому себе!"), 400
+
+        chat = Chat(type="user", private=True).save()
+        user.add_to_chat(chat)
+        sec_user.add_to_chat(chat)
+
+        emit("new_chat_room", chat.id, user.id, to=f"user_{user.id}", namespace="/")
+        emit(
+            "new_chat_room",
+            chat.id,
+            sec_user.id,
+            to=f"user_{sec_user.id}",
+            namespace="/",
+        )
+
+    return jsonify(ok=True, chat_id=chat.id)
+
+
+@chat_bp.post("/user")
 @jwt_required()
 def create_chat():
     chat_name = request.json.get("name", "")
@@ -84,22 +147,6 @@ def upload_avatar():
     return {"error": "Invalid file type"}, 400
 
 
-@chat_bp.get("/", strict_slashes=False)
-@jwt_required()
-def index():
-    user = User.get(get_jwt_identity())
-    chat = Chat.get(request.args.get("id"))
-
-    if not chat:
-        return jsonify(ok=False)
-
-    return jsonify(
-        chat=chat.to_dict(user.id),
-        users=[user.to_dict() for user in chat.users],
-        member=user in chat.users,
-    )
-
-
 @chat_bp.post("/add")
 @jwt_required()
 def add_user():
@@ -108,7 +155,7 @@ def add_user():
     chat = Chat.get(request.json.get("cid"))
 
     if not user or not chat.users:
-        return jsonify(ok=False, id=1)
+        return jsonify(ok=False)
 
     if user in chat.users:
         return jsonify(ok=False)
@@ -146,12 +193,13 @@ def join():
         content=f"Пользователь {user.username} присоединился!",
     ).save()
 
+    emit("new_chat_room", chat.id, user.id, to=f"user_{user.id}", namespace="/")
     emit("message", chat.id, broadcast=True, to=f"chat_{chat.id}", namespace="/")
 
     return jsonify(uid=user.id)
 
 
-@chat_bp.get("search")
+@chat_bp.get("/search")
 @jwt_required()
 def search_chat():
     chat_name = request.args.get("query", "")
@@ -189,7 +237,9 @@ def remove():
             chat_id=chat.id,
             content=f"Пользователь {user2.username} был удален!",
         ).save()
-        emit("message", chat.id, broadcast=True, room=f"chat_{chat.id}", namespace="/")
+
+        emit("remove_from_chat_room", chat.id, to=f"user_{user2.id}")
+        emit("message", chat.id, broadcast=True, to=f"chat_{chat.id}", namespace="/")
 
         return [user.to_dict() for user in chat.users]
     return {}
@@ -214,6 +264,6 @@ def leave():
         user_id=1, chat_id=chat.id, content=f"Пользователь {user.username} вышел("
     ).save()
 
-    emit("message", chat.id, broadcast=True, room=f"chat_{chat.id}", namespace="/")
+    emit("message", chat.id, broadcast=True, to=f"chat_{chat.id}", namespace="/")
 
     return jsonify(chats=[chat.to_dict(user.id) for chat in user.chats])

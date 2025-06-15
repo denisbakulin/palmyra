@@ -6,7 +6,7 @@ from flask_socketio import emit
 message_bp = Blueprint("message", __name__)
 
 
-@message_bp.get("/", strict_slashes=False)
+@message_bp.get("/")
 @jwt_required()
 def get_messages():
     offset = request.args.get("offset", default=0, type=int)
@@ -32,7 +32,7 @@ def get_messages():
     )
 
 
-@message_bp.post("/", strict_slashes=False)
+@message_bp.post("/")
 @jwt_required()
 def create_message():
 

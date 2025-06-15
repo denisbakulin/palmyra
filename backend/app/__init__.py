@@ -14,10 +14,10 @@ def create_app():
     from app.routes.message import message_bp
     from app.routes.chat import chat_bp
 
-    app.register_blueprint(auth_bp, url_prefix="/auth")
-    app.register_blueprint(user_bp, url_prefix="/user")
-    app.register_blueprint(chat_bp, url_prefix="/chat")
-    app.register_blueprint(message_bp, url_prefix="/msg")
+    app.register_blueprint(auth_bp, url_prefix="/auth", strict_slashes=False)
+    app.register_blueprint(user_bp, url_prefix="/user", strict_slashes=False)
+    app.register_blueprint(chat_bp, url_prefix="/chat", strict_slashes=False)
+    app.register_blueprint(message_bp, url_prefix="/msg", strict_slashes=False)
 
     CORS(
         app,
