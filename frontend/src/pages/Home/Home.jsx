@@ -105,7 +105,7 @@ export default function Home() {
       const connectToGroups = async () => {
         try {
           const response = await api.get("user");
-          response.data.chats.map((chat) =>
+          response.data.chats.map(chat =>
             socket.emit("join_chat_room", chat.id),
           );
           socket.emit("join_user_room", response.data.id);

@@ -54,7 +54,7 @@ def index():
     )
 
 
-@user_bp.get("search")
+@user_bp.get("/search")
 @jwt_required()
 def search_user():
     username = request.args.get("query", "")
@@ -80,7 +80,7 @@ def get_user_by_id(user_id):
     return jsonify(user=user.to_dict())
 
 
-@user_bp.post("edit/username")
+@user_bp.post("/edit/username")
 @jwt_required()
 def edit_username():
     username = str(request.json.get("username", ""))
@@ -101,7 +101,7 @@ def edit_username():
     return jsonify(ok=True)
 
 
-@user_bp.post("edit/info")
+@user_bp.post("/edit/info")
 @jwt_required()
 def edit_info():
     info = str(request.json.get("info", ""))
