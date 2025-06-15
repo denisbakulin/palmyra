@@ -199,7 +199,7 @@ export default function Home() {
 
     const fetchMessages = async () => {
       setIsMessagesLoading(true);
-      const response = await api.get("msg/", {
+      const response = await api.get("msg", {
         params: {
           chat_id: chatID,
           offset: offset,

@@ -265,8 +265,8 @@ const HomeElement = ({
                         
                         const fetchUser = async () => {    
                             try {
-                                const data = await api.post("chat/", {name: chatName.current.value, private: isPrivate, type:"group"})
-                                const response = await api.get("user/")
+                                const data = await api.post("chat", {name: chatName.current.value, private: isPrivate, type:"group"})
+                                const response = await api.get("user")
                                 response.data.chats.map(chat => socket.emit("join_to_room", chat.id))
                                 setChats(response.data.chats)
                                 setWMode("none")
