@@ -109,9 +109,12 @@ export default function Home() {
             socket.emit("join_chat_room", chat.id),
           );
           socket.emit("join_user_room", response.data.id);
+
+          console.log(response)
         } catch {
           addNotification("error", "Ошибка соединения...");
         }
+
       };
       connectToGroups();
     });
@@ -120,10 +123,10 @@ export default function Home() {
       const chatUpdate = async () => {
         const response = await api.get("chat", { params: { id: chatId } });
         if (chatIDRef.current === chatId) {
-          setChatInfo((p) => ({
+          setChatInfo({
             ...response.data.chat,
             users: response.data.users,
-          }));
+          });
         }
         setChats((prevChats) => {
           return prevChats.map((chat) =>
@@ -153,7 +156,7 @@ export default function Home() {
     socket.on("message", chatId => {
       const getNewMessage = async () => {
         try {
-          const response = await api.get("msg", { params: { chat_id: room } });
+          const response = await api.get("msg", { params: { chat_id: chatId } });
           const messages = response.data.messages;
           if (messages.length === 0) return null;
 

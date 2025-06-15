@@ -49,4 +49,5 @@ def create_message():
 
     Message(user_id=user.id, chat_id=chat.id, content=content).save()
     emit("message",chat.id, broadcast=True, to=f"chat_{chat.id}", namespace="/")
+
     return jsonify(status=True)
