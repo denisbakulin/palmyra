@@ -12,11 +12,9 @@ import down from "./images/down.png"
 
 export default function MessageConsole ({
     chatID,
-    socket,
     messagesEnd
 }) {
-    
-    const [files, setFiles] = useState([])
+
     const input = useRef(null)
     const [value, setValue] = useState("")
 
@@ -29,12 +27,10 @@ export default function MessageConsole ({
     const sendMessage = () => {
         const send = async () => {
             try {
-                const response = await api.post("msg/", {
+                await api.post("msg", {
                     chat_id: chatID,
                     content: value
                 })
-                console.log(response.data)
-                socket.current.emit("send_message", chatID)
             } catch {}
         }
         if (value.trim()){
@@ -42,24 +38,9 @@ export default function MessageConsole ({
             input.current.setSelectionRange(0, 0)
             input.current.focus()
             input.current.style.height = "auto"
-            setValue("")
-            
-
-            
-        }
-        
-        
+            setValue("")}
     }  
     const [showPicker, setShowPicker] = useState(false);
-
-    function validateFiles (e) {
-        let arr = []
-        for (let file of Array.from(e.target.files)) {
-            if (file.size < 5 * 1024 * 1024) arr.push(file)
-        }
-
-        setFiles(prev => [...arr, ...prev].slice(0, 6))
-    }
 
     return (
         <div id="message-console">
