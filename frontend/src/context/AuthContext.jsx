@@ -1,12 +1,12 @@
-import { createContext, useContext, useEffect, useState } from 'react';
-import api from '@api/api';
-import { useNavigate } from 'react-router-dom';
+import { createContext, useContext, useEffect, useState } from "react";
+import api from "@api/api";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isAuth, setIsAuth] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
+  const [isAuth, setIsAuth] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -15,20 +15,18 @@ export const AuthProvider = ({ children }) => {
         const request = await api.get("auth/validate");
         setIsAuth(request.data.valid);
         if (!request.data.valid) {
-          navigate('/auth');
+          navigate("/auth");
         }
       } catch (error) {
-        console.error("Validation error:", error);
         setIsAuth(false);
-        navigate('/auth');
+        navigate("/auth");
       } finally {
         setIsLoading(false);
       }
     };
-
     validateToken();
   }, [navigate]);
-  if (isLoading) return ""
+  if (isLoading) return "";
   return (
     <AuthContext.Provider value={{ isAuth, isLoading }}>
       {children}
@@ -37,4 +35,3 @@ export const AuthProvider = ({ children }) => {
 };
 
 export const useAuth = () => useContext(AuthContext);
-

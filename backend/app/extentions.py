@@ -9,5 +9,5 @@ socketio = SocketIO(
     cors_allowed_origins="*",
     async_mode="eventlet",
     allow_headers=["Authorization"],
-    path="/api/socket.io",
+    path="/api/socket.io/",
 )

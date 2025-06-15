@@ -1,9 +1,8 @@
 from flask import Blueprint, jsonify, request, current_app
-from app.models import User
 from flask_jwt_extended import jwt_required, get_jwt_identity
-
-
 import os
+
+from app.models import User
 from app.config import Config
 
 user_bp = Blueprint("user", __name__)
@@ -47,14 +46,14 @@ def index():
     user = User.get(get_jwt_identity())
 
     if not user:
-        return {}
+        return {}, 400
 
     return jsonify(
         **user.to_dict(), chats=[chat.to_dict(user.id) for chat in user.chats]
     )
 
 
-@user_bp.get("search")
+@user_bp.get("/search")
 @jwt_required()
 def search_user():
     username = request.args.get("query", "")
@@ -101,7 +100,7 @@ def edit_username():
     return jsonify(ok=True)
 
 
-@user_bp.post("edit/info")
+@user_bp.post("/edit/info")
 @jwt_required()
 def edit_info():
     info = str(request.json.get("info", ""))

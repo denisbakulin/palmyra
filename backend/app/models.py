@@ -1,5 +1,6 @@
 from sqlalchemy import DateTime, func, select
 from datetime import datetime
+
 from app.extentions import db
 from app.config import Config
 

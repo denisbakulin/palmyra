@@ -13,10 +13,6 @@ const api = axios.create({
   timeout: 2000,
 })
 
-
-
-
-
 api.interceptors.request.use(config => {
   const token = getAccessToken()
   
@@ -64,7 +60,7 @@ api.interceptors.response.use(
       }
     }
     
-    return Promise.reject(error);
+    return Promise.reject(error)
   }
 )
 

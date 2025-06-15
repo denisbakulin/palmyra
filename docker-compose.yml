@@ -34,7 +34,7 @@ services:
     container_name: react-frontend
     restart: always
     volumes:
-      - ./static/avatars:/usr/share/nginx/html/avatars
+      - ./static/avatars:/usr/share/nginx/html/avatars:ro
     ports:
       - "80:80"
     depends_on:

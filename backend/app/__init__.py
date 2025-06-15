@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_cors import CORS
-from app.config import Config
 
+from app.config import Config
 from app.extentions import db, jwt, socketio
 
 
@@ -21,7 +21,7 @@ def create_app():
 
     CORS(
         app,
-        origins=["http://localhost:3000", "http://localhost"],
+        origins=["http://localhost"],
         supports_credentials=True,
         allow_headers=["Content-Type", "Authorization", "Accept", "X-Requested-With"],
         methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
