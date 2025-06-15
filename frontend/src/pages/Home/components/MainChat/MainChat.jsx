@@ -36,7 +36,7 @@ export default function MainChat ({
         const scrollHeightBefore = chatContainer.scrollHeight;
         const offset = messages.length;
 
-        const response = await api.get("msg/", {
+        const response = await api.get("msg", {
             params: {
                 chat_id: chatID,
                 offset,
@@ -78,7 +78,7 @@ export default function MainChat ({
         setInitialLoaded(false);
 
         const loadInitialMessages = async () => {
-            const response = await api.get("msg/", {
+            const response = await api.get("msg", {
                 params: {
                     chat_id: chatID,
                     offset: 0,
@@ -139,7 +139,7 @@ export default function MainChat ({
     const sendMessage = () => {
         const send = async () => {
             try {
-                api.post("msg/", {
+                api.post("msg", {
                     chat_id: chatID,
                     content: "привет!"
                 })
@@ -147,7 +147,6 @@ export default function MainChat ({
             } catch {}
         }
         send()
-        socket.current.emit("send_message", chatID)
     }  
     const onClickHeader =() => {
         setWMode(chatInfo.type)

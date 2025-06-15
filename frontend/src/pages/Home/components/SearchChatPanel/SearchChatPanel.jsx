@@ -107,7 +107,7 @@ export default function SearchChatPanel ({
                 <div className="search-button member btn" 
                     key={`ch-${chat.id}`} 
                     onClick={async ()=>{
-                    const response = await api.get("chat/", {params: {id: chat.id}})
+                    const response = await api.get("chat", {params: {id: chat.id}})
                     setSearchInfo(response.data)
                     setWMode("searchGroup") 
                 }}>
@@ -124,7 +124,7 @@ export default function SearchChatPanel ({
                 <div className={`search-button btn`} 
                     key={`ch-${chat.id}`} 
                     onClick={async ()=>{
-                    const response = await api.get("chat/", {params: {id: chat.id}})
+                    const response = await api.get("chat", {params: {id: chat.id}})
                     setSearchInfo(response.data)
                     setWMode("searchGroup") 
                 }}>

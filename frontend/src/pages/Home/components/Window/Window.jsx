@@ -267,7 +267,6 @@ const HomeElement = ({
                             try {
                                 const data = await api.post("chat", {name: chatName.current.value, private: isPrivate, type:"group"})
                                 const response = await api.get("user")
-                                response.data.chats.map(chat => socket.emit("join_to_room", chat.id))
                                 setChats(response.data.chats)
                                 setWMode("none")
                                 setChatID(data.data.cid)
@@ -487,14 +486,13 @@ const UserElement = ({
        const open = async () => {
            setWMode("none")
            try {
-                const response = await api.post("chat/", {
+                const response = await api.post("chat", {
                     uid: info.id,
                     type: "user"
                 })
                 const data = response.data
                 if (data.ok) {
-                    data.users.map(id => socket.emit("chat", id))
-                    console.log(data)
+
                     setChatID(data.cid)
             }
            } catch (error) {
@@ -550,7 +548,6 @@ const SearchGroupElement = ({
     searchInfo,
     setUserID,
     setChatID,
-    socket,
     userInfo
 
 }) => {
@@ -562,7 +559,7 @@ const SearchGroupElement = ({
     
     const joinToGroup = async () => {
         await api.post("chat/join", {cid: searchInfo.chat.id})
-        socket.emit("chat", userInfo.id)
+
         setWMode("none")
         setChatID(searchInfo.chat.id)
 
