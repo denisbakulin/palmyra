@@ -1,45 +1,35 @@
-from app.extentions import socketio
 from flask_socketio import emit, join_room, leave_room
 
+from app.extentions import socketio
 
-@socketio.on("send_message")
-def handle_message(room):
-    if isinstance(room, int):
-        emit("message", room, broadcast=True, to=f"chat_{room}")
+
+
+@socketio.on("join_chat_room")
+def connect_to_chat_room(chat_id):
+    if isinstance(chat_id, int):
+        join_room(f"chat_{chat_id}")
+
+
+@socketio.on("join_user_room")
+def connect_to_user_room(user_id):
+    if isinstance(user_id, int):
+        join_room(f"user_{user_id}")
 
 
 @socketio.on("leave")
-def leave(room):
-    leave_room(f"chat_{room}")
-
-
-@socketio.on("connect")
-def connect():
-    print("Connected")
-
-
-@socketio.on("join_to_room")
-def connect_to_group(room):
-    if isinstance(room, int):
-        join_room(f"chat_{room}")
-
-
-@socketio.on("user")
-def user(uid):
-    if isinstance(uid, int):
-        join_room(f"user_{uid}")
-
-
-@socketio.on("connect")
-def connect():
-    emit("status", True)
+def leave_from_chat(chat_id):
+    if isinstance(chat_id, int):
+        leave_room(f"chat_{chat_id}")
 
 
 @socketio.on("chat")
-def add(uid):
-    emit("chat", to=f"user_{uid}")
+def chat_handle(chat_id):
+    if isinstance(chat_id, int):
+        emit("chat", chat_id, to=f"chat_{chat_id}")
 
 
-@socketio.on("rem")
-def rem(uid, cid):
-    emit("rem", cid, to=f"user_{uid}")
+@socketio.on("new_chat_room")
+def new_room(chat_id, user_id):
+    if isinstance(chat_id, int):
+        join_room(f"chat_{chat_id}")
+        emit("chat", chat_id, to=f"user_{user_id}")
