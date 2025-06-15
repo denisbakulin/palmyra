@@ -100,10 +100,6 @@ export default function MainChat ({
     }, [chatOpenKey]);
 
 
-
-
-
-
     useEffect(() => {
         if (!chatRef.current || !chatID) return;
 
