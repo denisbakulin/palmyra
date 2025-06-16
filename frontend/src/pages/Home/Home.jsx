@@ -92,8 +92,7 @@ export default function Home() {
   }, [chatID]);
 
   useEffect(() => {
-    socketRef.current = io({
-      path: "/api/socket.io/",
+    socketRef.current = io("http://127.0.0.1:5000/socket.io/", {
       transports: ["websocket"],
       reconnectionAttempts: 5,
       reconnectionDelay: 3000,
@@ -104,29 +103,26 @@ export default function Home() {
     socket.on("connect", () => {
       const connectToGroups = async () => {
         try {
-          const response = await api.get("user");
-          response.data.chats.map(chat =>
+          const response = await api.get("user/");
+          response.data.chats.map((chat) =>
             socket.emit("join_chat_room", chat.id),
           );
           socket.emit("join_user_room", response.data.id);
-
-          console.log(response)
         } catch {
           addNotification("error", "Ошибка соединения...");
         }
-
       };
       connectToGroups();
     });
 
     socket.on("chat", (chatId) => {
       const chatUpdate = async () => {
-        const response = await api.get("chat", { params: { id: chatId } });
+        const response = await api.get("chat/", { params: { id: chatId } });
         if (chatIDRef.current === chatId) {
-          setChatInfo({
+          setChatInfo((p) => ({
             ...response.data.chat,
             users: response.data.users,
-          });
+          }));
         }
         setChats((prevChats) => {
           return prevChats.map((chat) =>
@@ -153,23 +149,23 @@ export default function Home() {
       leaveFromChat();
     });
 
-    socket.on("message", chatId => {
+    socket.on("message", (room) => {
       const getNewMessage = async () => {
         try {
-          const response = await api.get("msg", { params: { chat_id: chatId } });
+          const response = await api.get("msg/", { params: { chat_id: room } });
           const messages = response.data.messages;
           if (messages.length === 0) return null;
 
           const message = messages[0];
 
-          if (chatId === chatIDRef.current) {
+          if (room === chatIDRef.current) {
             setMessages((prev) => {
               return [...prev, message];
             });
           }
           setChats((prevChats) => {
             return prevChats.map((chat) =>
-              chat.id === chatId
+              chat.id === room
                 ? {
                     ...chat,
                     last_message: message?.message.content,
@@ -181,11 +177,11 @@ export default function Home() {
                   }
                 : chat,
             );
-          })
+          });
         } catch (error) {
           console.log(error);
         }
-      }
+      };
 
       getNewMessage();
     });
@@ -202,7 +198,7 @@ export default function Home() {
 
     const fetchMessages = async () => {
       setIsMessagesLoading(true);
-      const response = await api.get("msg", {
+      const response = await api.get("msg/", {
         params: {
           chat_id: chatID,
           offset: offset,

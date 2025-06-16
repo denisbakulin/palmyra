@@ -716,8 +716,7 @@ const SearchGroupElement = ({ setWMode, searchInfo, setUserID, setChatID }) => {
     await api.post("chat/join", { cid: searchInfo.chat.id });
     setWMode("none");
     setChatID(searchInfo.chat.id);
-  } //1
-
+  };
 
   return (
     <>
