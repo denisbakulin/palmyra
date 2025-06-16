@@ -16,7 +16,7 @@ export default function useChatSocket({
   useEffect(() => {
     if (socketRef.current) return
 
-    const socket = io("http://localhost:5000", {
+    const socket = io({
       path: "/api/socket.io",
       transports: ["websocket"],
       reconnectionAttempts: 5,
