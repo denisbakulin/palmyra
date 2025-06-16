@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from app.models import User, Message, Chat
 from flask_jwt_extended import jwt_required, get_jwt_identity
+
 from flask_socketio import emit
 
 message_bp = Blueprint("message", __name__)
@@ -48,6 +49,6 @@ def create_message():
         return jsonify({"status": False})
 
     Message(user_id=user.id, chat_id=chat.id, content=content).save()
-    emit("message",chat.id, broadcast=True, to=f"chat_{chat.id}", namespace="/")
+    emit("message", chat.id, to=f"chat_{chat.id}", namespace="/")
 
     return jsonify(status=True)

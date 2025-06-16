@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request, current_app
+from flask import Blueprint, jsonify, request
 from app.models import User, Chat, Message
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from flask_socketio import emit
@@ -14,7 +14,7 @@ chat_bp = Blueprint("chat", __name__)
 @jwt_required()
 def index():
     user = User.get(get_jwt_identity())
-    chat = Chat.get(request.args.get("id"))
+    chat = Chat.get(request.args.get("chat_id"))
 
     if not chat:
         return jsonify(ok=False)
@@ -38,7 +38,11 @@ def create_chat():
 
     chat = Chat(name=chat_name, type="group", private=private).save()
     user.add_to_chat(chat)
-    emit("new_chat_room", chat.id, user.id, to=f"user_{user.id}", namespace="/")
+
+
+    emit("new_chat_room",
+         {"chat_id": chat.id, "user_id": user.id},
+         to=f"user_{user.id}", namespace="/")
 
     return jsonify(ok=True, chat_id=chat.id)
 
@@ -49,8 +53,8 @@ def create_user_chat():
     user = User.get(get_jwt_identity())
     sec_user = User.get(request.json.get("user_id"))
     chat = Chat.find_chat_with_users([user.id, sec_user.id])
-
-    if not sec_user or not chat or not user:
+    print(user, sec_user, chat)
+    if not sec_user or not user:
         return jsonify(ok=False)
 
     if not chat:
@@ -61,54 +65,13 @@ def create_user_chat():
         user.add_to_chat(chat)
         sec_user.add_to_chat(chat)
 
-        emit("new_chat_room", chat.id, user.id, to=f"user_{user.id}", namespace="/")
-        emit(
-            "new_chat_room",
-            chat.id,
-            sec_user.id,
-            to=f"user_{sec_user.id}",
-            namespace="/",
-        )
+        for user in (user, sec_user):
+            emit("new_chat_room",
+                 {"chat_id": chat.id, "user_id": user.id},
+                 to=f"user_{user.id}", namespace="/")
+
 
     return jsonify(ok=True, chat_id=chat.id)
-
-
-@chat_bp.post("/user")
-@jwt_required()
-def create_chat():
-    chat_name = request.json.get("name", "")
-    private = request.json.get("private", "")
-    ctype = request.json.get("type", "")
-    uid = request.json.get("uid", "")
-
-    if ctype == "group" and not chat_name:
-        return jsonify(ok=False)
-
-    user = User.get(get_jwt_identity())
-
-    if ctype == "group":
-        chat = Chat(name=chat_name, type="group", private=bool(private)).save()
-        user.add_to_chat(chat)
-        return jsonify(ok=True, cid=chat.id)
-
-    elif ctype == "user":
-        user2 = User.get(uid)
-
-        if not user2:
-            return jsonify(ok=False)
-
-        chat = Chat.find_chat_with_users([user.id, uid])
-
-        if not chat:
-            if user2.id == user.id:
-                return jsonify(ok=False, error="Нельзя написать самому себе!"), 400
-
-            chat = Chat(type="user", private=True).save()
-            user.add_to_chat(chat)
-            user2.add_to_chat(chat)
-
-        return jsonify(ok=True, cid=chat.id, users=[user.id for user in chat.users])
-    return {}, 400
 
 
 @chat_bp.post("/avatar")
@@ -167,20 +130,23 @@ def add_user():
         content=f"Пользователь {user.username} присоединился!",
     ).save()
 
-    emit("message", chat.id, broadcast=True, to=f"chat_{chat.id}", namespace="/")
-    emit("chat", broadcast=True, to=f"chat_{chat.id}", namespace="/")
+    emit("message", chat.id, to=f"chat_{chat.id}", namespace="/")
+    emit("add_room", {"chat_id": chat.id}, to=f"user_{user.id}", namespace="/")
+    emit("chat", chat.id, to=f"chat_{chat.id}", namespace="/")
 
     return jsonify(uid=user.id, users=[user.to_dict() for user in chat.users])
 
+
+from functools import reduce
 
 @chat_bp.post("/join")
 @jwt_required()
 def join():
 
     user = User.get(get_jwt_identity())
-    chat = Chat.get(request.json.get("cid"))
+    chat = Chat.get(request.json.get("chat_id"))
 
-    if not user or not chat.users:
+    if not chat or not user or user in chat.users:
         return jsonify(ok=False)
 
     if user in chat.users:
@@ -193,8 +159,8 @@ def join():
         content=f"Пользователь {user.username} присоединился!",
     ).save()
 
-    emit("new_chat_room", chat.id, user.id, to=f"user_{user.id}", namespace="/")
-    emit("message", chat.id, broadcast=True, to=f"chat_{chat.id}", namespace="/")
+    emit("new_chat_room", {"chat_id": chat.id}, to=f"user_{user.id}", namespace="/")
+    emit("message", chat.id, to=f"chat_{chat.id}", namespace="/")
 
     return jsonify(uid=user.id)
 
@@ -238,8 +204,9 @@ def remove():
             content=f"Пользователь {user2.username} был удален!",
         ).save()
 
-        emit("remove_from_chat_room", chat.id, to=f"user_{user2.id}")
-        emit("message", chat.id, broadcast=True, to=f"chat_{chat.id}", namespace="/")
+        emit("remove_from_chat_room", chat.id, to=f"user_{user2.id}", namespace="/")
+        emit("chat", chat.id, to=f"chat_{chat.id}", namespace="/" )
+        emit("message", chat.id, to=f"chat_{chat.id}", namespace="/")
 
         return [user.to_dict() for user in chat.users]
     return {}

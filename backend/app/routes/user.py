@@ -1,9 +1,8 @@
 from flask import Blueprint, jsonify, request, current_app
-from app.models import User
 from flask_jwt_extended import jwt_required, get_jwt_identity
-
-
 import os
+
+from app.models import User
 from app.config import Config
 
 user_bp = Blueprint("user", __name__)
@@ -41,13 +40,13 @@ def upload_avatar():
     return {"error": "Invalid file type"}, 400
 
 
-@user_bp.get("/", strict_slashes=False)
+@user_bp.get("/")
 @jwt_required()
 def index():
     user = User.get(get_jwt_identity())
 
     if not user:
-        return {}
+        return {}, 400
 
     return jsonify(
         **user.to_dict(), chats=[chat.to_dict(user.id) for chat in user.chats]
@@ -80,7 +79,7 @@ def get_user_by_id(user_id):
     return jsonify(user=user.to_dict())
 
 
-@user_bp.post("/edit/username")
+@user_bp.post("edit/username")
 @jwt_required()
 def edit_username():
     username = str(request.json.get("username", ""))

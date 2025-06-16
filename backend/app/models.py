@@ -1,7 +1,8 @@
 from sqlalchemy import DateTime, func, select
 from datetime import datetime
+
 from app.extentions import db
-from app.config import Config
+
 
 chat_users = db.Table(
     "chat_users",
@@ -87,9 +88,7 @@ class Chat(db.Model):
     users = db.relationship(
         "User",
         secondary=chat_users,
-        back_populates="chats",
-        cascade="all, delete",
-        passive_deletes=True,
+        back_populates="chats"
     )
 
     messages = db.relationship("Message", back_populates="chat", lazy="dynamic")

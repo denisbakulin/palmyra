@@ -1,7 +1,5 @@
 from flask_socketio import emit, join_room, leave_room
-
 from app.extentions import socketio
-
 
 
 @socketio.on("join_chat_room")
@@ -25,11 +23,11 @@ def leave_from_chat(chat_id):
 @socketio.on("chat")
 def chat_handle(chat_id):
     if isinstance(chat_id, int):
-        emit("chat", chat_id, to=f"chat_{chat_id}")
+        emit("chat", chat_id, to=f"chat_{chat_id}", broadcast=True)
 
 
 @socketio.on("new_chat_room")
 def new_room(chat_id, user_id):
     if isinstance(chat_id, int):
         join_room(f"chat_{chat_id}")
-        emit("chat", chat_id, to=f"user_{user_id}")
+        emit("chat", chat_id, to=f"user_{user_id}", broadcast=True)
